@@ -1,8 +1,8 @@
-from ._anvil_designer import Home_copyTemplate
+from ._anvil_designer import _homeTemplate
 from anvil import *
 import anvil.server
 
-class Home_copy(Home_copyTemplate):
+class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
