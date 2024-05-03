@@ -1,5 +1,8 @@
 correct_dependency_ids: {}
-dependencies: []
+dependencies:
+- dep_id: dep_x8cl16vjq8vwt
+  version: {dev: false}
+  resolution_hints: {app_id: 4TWMMIN6FHFQ5474, name: WalletConnectComponent, package_name: WalletConnectComponent}
 services:
 - source: /runtime/services/tables.yml
   client_config: {}
