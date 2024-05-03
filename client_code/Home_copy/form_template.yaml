@@ -1,0 +1,193 @@
+is_package: true
+container:
+  type: HtmlTemplate
+  properties: {html: '@theme:standard-page.html'}
+components:
+- type: ColumnPanel
+  properties: {col_widths: '{"BFKXGV":60}', spacing_above: none, spacing_below: large}
+  name: content_panel
+  layout_properties: {slot: default}
+  components:
+  - name: content_card
+    properties: {role: content-card, spacing_above: none, spacing_below: large}
+    type: ColumnPanel
+    layout_properties: {grid_position: 'DYYOJB,TKAMCU'}
+    components:
+    - name: column_panel_3
+      properties: {spacing_above: none, spacing_below: none, wrap_on: never, col_spacing: none}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'HZKEQY,PPNVFM'}
+      components:
+      - name: image_1
+        properties: {source: _/theme/d.jpg, height: auto, display_mode: shrink_to_fit,
+          spacing_above: none, spacing_below: small, vertical_align: top}
+        type: Image
+        layout_properties: {grid_position: 'TDSWKZ,YXNBEZ'}
+      - name: title
+        properties: {text: Saturday Morning, role: body, spacing_above: large, spacing_below: none,
+          bold: true, font_size: 20, font: Inter}
+        type: Label
+        layout_properties: {grid_position: 'GNQXEI,BGXZMF'}
+      - name: artist
+        properties: {text: by THIQ LIQ & Mo’ Fur, role: body, spacing_above: medium,
+          font: Inter}
+        type: Label
+        layout_properties: {grid_position: 'KRDFXJ,TJUMHQ'}
+    data_bindings: []
+  - name: outlined_card_1
+    properties: {role: content-card, col_widths: '{"NHJZJI":45,"YWJYGR":15}', spacing_below: large,
+      spacing_above: none, wrap_on: never}
+    type: ColumnPanel
+    layout_properties: {grid_position: 'DYYOJB,HSJZCF DUXJQY,KOPELV'}
+    components:
+    - name: bid_input
+      properties: {role: outlined, spacing_above: small, font: Inter, placeholder: '22.4'}
+      type: TextBox
+      layout_properties: {grid_position: 'KJMIFY,WRGPQT'}
+    - name: flow_panel_1
+      properties: {spacing_above: none, spacing_below: none, vertical_align: full}
+      type: FlowPanel
+      layout_properties: {grid_position: 'IRNQYE,NHJZJI'}
+      components:
+      - name: place_bid
+        properties: {text: Place Bid, role: filled-button, align: left, spacing_above: none,
+          spacing_below: none, font: ''}
+        type: Button
+        layout_properties: {}
+      - name: info_icon
+        properties: {text: '', icon: 'fa:info-circle', spacing_above: none, spacing_below: none,
+          font_size: 16, icon_align: left_edge, align: left}
+        type: Button
+    - name: flow_panel_2
+      properties: {spacing_above: none, align: right, spacing_below: none}
+      type: FlowPanel
+      layout_properties: {grid_position: 'IRNQYE,YWJYGR'}
+      components:
+      - name: ending_countdown
+        properties: {text: 9h 12m 5s, spacing_above: small, spacing_below: none, bold: true,
+          font_size: 16, role: body}
+        type: Label
+        layout_properties: {}
+  - name: outlined_card_2_copy
+    properties: {role: content-card, spacing_above: none, wrap_on: never, col_spacing: none,
+      spacing_below: large, col_widths: '{"NPLULL":20,"NZJLDT":20}'}
+    type: ColumnPanel
+    layout_properties: {grid_position: 'DYYOJB,HSJZCF YJEBFV,PCPITF'}
+    components:
+    - name: column_panel_4
+      properties: {wrap_on: never, spacing_above: none, spacing_below: none, col_spacing: none}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'BZAKKR,NPLULL'}
+      components:
+      - name: artist_copy_copy_2_copy
+        properties: {text: 22.1 GOFURS, role: body, spacing_above: none, spacing_below: small,
+          bold: true, font: Inter, align: center, font_size: 16}
+        type: Label
+        layout_properties: {grid_position: 'LRUSCR,MKLQUJ'}
+      - name: artist_copy_copy_2
+        properties: {text: Last Bid, role: body, spacing_above: none, spacing_below: none,
+          bold: false, font: Inter, align: center, font_size: 12}
+        type: Label
+        layout_properties: {grid_position: 'ZVLNLU,LZUZUY'}
+    - name: column_panel_4_copy_2
+      properties: {wrap_on: never, spacing_above: none, spacing_below: none, col_spacing: none}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'BZAKKR,ZMRVYW'}
+      components:
+      - name: artist_copy_copy_2_copy_copy_2
+        properties: {text: '369', role: body, spacing_above: none, spacing_below: small,
+          bold: true, font: Inter, align: center, font_size: 16}
+        type: Label
+        layout_properties: {grid_position: 'LRUSCR,MKLQUJ'}
+      - name: artist_copy_copy_2_copy_3
+        properties: {text: Total Bids, role: body, spacing_above: none, spacing_below: none,
+          bold: false, font: Inter, align: center, font_size: 12}
+        type: Label
+        layout_properties: {grid_position: 'ZVLNLU,LZUZUY'}
+    - name: column_panel_4_copy
+      properties: {wrap_on: never, spacing_above: none, spacing_below: none, col_widths: '{"LZUZUY":40,"BNRQAU":20}',
+        col_spacing: none}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'BZAKKR,NZJLDT'}
+      components:
+      - name: artist_copy_copy_2_copy_copy
+        properties: {text: 10.1 GOFURS, role: body, spacing_above: none, spacing_below: small,
+          bold: true, font: Inter, align: center, font_size: 16}
+        type: Label
+        layout_properties: {grid_position: 'LRUSCR,MKLQUJ'}
+      - name: artist_copy_copy_2_copy_2
+        properties: {text: Total Earnings, role: body, spacing_above: none, spacing_below: none,
+          bold: false, font: Inter, align: center, font_size: 12}
+        type: Label
+        layout_properties: {grid_position: 'ZVLNLU,LZUZUY'}
+        data_bindings: []
+  - name: outlined_card_2
+    properties: {role: content-card, spacing_above: none, wrap_on: never, col_widths: '{"EMDONO":25,"VTNLPY":25,"FEKPCX":25}',
+      col_spacing: none}
+    type: ColumnPanel
+    layout_properties: {grid_position: 'DYYOJB,HSJZCF ZRKJIL,WQPROK'}
+    components:
+    - name: artist_copy
+      properties: {text: Bid History, role: body, spacing_above: none, spacing_below: large,
+        bold: true, font: Inter, font_size: 16}
+      type: Label
+      layout_properties: {grid_position: 'KPXQMC,UIAHWZ'}
+    - name: artist_copy_copy_copy_copy
+      properties: {text: 0x443...2C5, role: body, spacing_above: none, spacing_below: none,
+        bold: false, font: Inter, font_size: 14, align: left}
+      type: Label
+      layout_properties: {grid_position: 'UQYDEE,AFPSAA'}
+    - name: artist_copy_copy
+      properties: {text: '1,000,000,000 PLS', role: body, spacing_above: none, spacing_below: none,
+        bold: false, font: Inter, font_size: 14, align: right}
+      type: Label
+      layout_properties: {grid_position: 'UQYDEE,EMDONO'}
+    - name: artist_copy_copy_copy_copy_copy
+      properties: {text: 0x443...2C5, role: body, spacing_above: large, spacing_below: none,
+        bold: false, font: Inter, font_size: 14, align: left}
+      type: Label
+      layout_properties: {grid_position: 'RNTNCG,PENFHA'}
+    - name: artist_copy_copy_copy_2
+      properties: {text: '1,000,000 PLS', role: body, spacing_above: large, spacing_below: none,
+        bold: false, font: Inter, font_size: 14, align: right}
+      type: Label
+      layout_properties: {grid_position: 'RNTNCG,VTNLPY'}
+    - name: artist_copy_copy_copy_copy_copy_copy
+      properties: {text: 0x443...2C5, role: body, spacing_above: large, spacing_below: none,
+        bold: false, font: Inter, font_size: 14, align: left}
+      type: Label
+      layout_properties: {grid_position: 'PDLHLX,ILTTGL'}
+    - name: artist_copy_copy_copy_2_copy
+      properties: {text: '1,000,000 PLS', role: body, spacing_above: large, spacing_below: none,
+        bold: false, font: Inter, font_size: 14, align: right}
+      type: Label
+      layout_properties: {grid_position: 'PDLHLX,FEKPCX'}
+- type: FlowPanel
+  properties: {align: center, vertical_align: middle, spacing: none, spacing_above: small}
+  name: navbar_links
+  layout_properties: {slot: nav-right}
+  components:
+  - name: column_panel_2
+    properties: {}
+    type: ColumnPanel
+    components:
+    - name: button_3
+      properties: {text: Connect, role: filled-button, spacing_above: none, font: Inter,
+        spacing_below: none}
+      type: Button
+      layout_properties: {grid_position: 'UMBVHY,EKIDWL'}
+- name: column_panel_1
+  properties: {}
+  type: ColumnPanel
+  layout_properties: {slot: left-nav}
+  components:
+  - name: link_1
+    properties: {text: Auction, font: Inter, icon: '', align: left}
+    type: Link
+    layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
+    event_bindings: {click: link_1_click}
+  - name: link_1_copy
+    properties: {text: About, font: Inter, icon: '', align: left}
+    type: Link
+    layout_properties: {grid_position: 'UWABUF,BSGAKM'}
+    event_bindings: {click: link_1_copy_click}

@@ -1,0 +1,20 @@
+correct_dependency_ids: {}
+dependencies: []
+services:
+- source: /runtime/services/tables.yml
+  client_config: {}
+  server_config: {}
+startup: {type: form, module: Home_copy}
+package_name: Auction_House
+allow_embedding: false
+name: Clone of Auction House
+runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
+metadata: {logo_img: 'asset:3c5267e412d3fbe2ff75059967ab5b6c.jpg'}
+startup_form: null
+native_deps: {head_html: '<link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+    rel="stylesheet">'}
+renamed: true
