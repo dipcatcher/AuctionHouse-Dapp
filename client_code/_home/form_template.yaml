@@ -17,11 +17,11 @@ components:
   type: ColumnPanel
   layout_properties: {slot: left-nav}
   components:
-  - name: link_1
+  - name: link_auction
     properties: {text: Auction, font: Inter, icon: '', align: left}
     type: Link
     layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
-    event_bindings: {click: link_1_click}
+    event_bindings: {click: menu_click}
   - name: link_1_copy
     properties: {text: About, font: Inter, icon: '', align: left}
     type: Link
