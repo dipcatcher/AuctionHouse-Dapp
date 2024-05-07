@@ -10,11 +10,14 @@ class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    
     self.menu_click(sender=self.link_auction)
+    self.c =  app_tables.contract_data.get(name='series')
     url = "http://127.0.0.1:8545/"
     self.provider = ethers.providers.JsonRpcProvider(url)
     self.contract = self.get_contract()
-    self.get_auction_data()
+    self.get_auction_data("Saturday Morning")
+    
     # Any code you write here will run before the form opens.
   def menu_click(self, **event_args):
     self.content_panel.clear()
@@ -24,12 +27,12 @@ class _home(_homeTemplate):
     self.content_panel.add_component(self.page)
   
   def get_contract(self):
-    c = app_tables.contract_data.get(name='series')
+    c = self.c
     address = c['address']
     abi = c['abi']
     return ethers.Contract(address, abi, self.provider)
-  def get_auction_data(self):
-    auction_data = self.contract.AUCTION_DATABASE("1")
+  def get_auction_data(self, name):
+    auction_data = self.contract.AUCTION_DATABASE(name)
     data = {}
     f = [
         "lastBidTimestamp",
@@ -58,6 +61,11 @@ class _home(_homeTemplate):
       data[f[n]] = v
       n+=1
     print(data)
+    return data
+  def get_user_data(self, address):
+    data = {}
+    data['Balance']
+    data['Approved']
     return data
   def events_catalog(self, event_name, from_block = 0, to_block = "latest"):
     abi = app_tables.contract_data.get(name='series')['abi']
