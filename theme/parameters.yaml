@@ -51,6 +51,7 @@ roles:
   components: [TextBox, TextArea, DatePicker, DropDown]
 - {name: main-container}
 - {name: content-card}
+- {name: highlighted}
 color_scheme:
   preset_groups:
   - name: Colour Scheme

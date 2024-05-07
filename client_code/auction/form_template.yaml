@@ -1,7 +1,9 @@
-container: {type: ColumnPanel}
+container:
+  type: ColumnPanel
+  event_bindings: {show: form_show}
 components:
 - name: content_panel
-  properties: {col_widths: '{"BFKXGV":60}', spacing_above: none, spacing_below: large}
+  properties: {col_widths: '{}', spacing_above: none, spacing_below: large}
   type: ColumnPanel
   layout_properties: {grid_position: 'XTSWDY,WKAYYG'}
   components:
@@ -37,18 +39,64 @@ components:
     type: ColumnPanel
     layout_properties: {grid_position: 'DYYOJB,HSJZCF DUXJQY,KOPELV'}
     components:
+    - name: column_panel_4_copy_4
+      properties: {wrap_on: never, spacing_above: small, spacing_below: small, col_spacing: none}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'YSDASZ,VRIZGD'}
+      components:
+      - name: label_balance
+        properties: {text: -- GOFURS, role: body, spacing_above: none, spacing_below: small,
+          bold: true, font: Inter, align: center, font_size: 16}
+        type: Label
+        layout_properties: {grid_position: 'PCDWHS,GNPCEI'}
+      - name: artist_copy_copy_2_copy
+        properties: {text: Your Balance, role: body, spacing_above: none, spacing_below: none,
+          bold: false, font: Inter, align: center, font_size: 12}
+        type: Label
+        layout_properties: {grid_position: 'CXRAJE,NINXRL'}
+      - name: button_buy_gofurs
+        properties: {text: Buy GOFURS, font_size: 10, spacing_above: none, spacing_below: none,
+          role: null}
+        type: Button
+        layout_properties: {grid_position: 'ZYEISQ,QPJIXO'}
+    - name: column_panel_4_copy_3
+      properties: {wrap_on: never, spacing_above: small, spacing_below: small, col_spacing: none}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'YSDASZ,MXBQFF'}
+      components:
+      - name: label_allowance
+        properties: {text: -- GOFURS, role: body, spacing_above: none, spacing_below: small,
+          bold: true, font: Inter, align: center, font_size: 16}
+        type: Label
+        layout_properties: {grid_position: 'IZSDTL,IECJNS'}
+      - name: artist_copy_copy_2_copy_4
+        properties: {text: Approved to Bid, role: body, spacing_above: none, spacing_below: none,
+          bold: false, font: Inter, align: center, font_size: 12}
+        type: Label
+        layout_properties: {grid_position: 'CFHLCK,HULEJC'}
+      - name: button_set_approval
+        properties: {text: Set Approval, font_size: 10, spacing_above: none, spacing_below: none,
+          role: null}
+        type: Button
+        layout_properties: {grid_position: 'GOXJOC,BKODNN'}
     - name: bid_input
-      properties: {role: outlined, spacing_above: small, font: Inter, placeholder: ''}
+      properties: {role: outlined, spacing_above: small, font: Inter, placeholder: '',
+        type: number}
       type: TextBox
       layout_properties: {grid_position: 'KJMIFY,WRGPQT'}
+      event_bindings: {change: bid_input_change}
+    - name: label_error
+      properties: {spacing_above: none, spacing_below: none, role: body, visible: false}
+      type: Label
+      layout_properties: {grid_position: 'JQAUXB,DHIWLO'}
     - name: flow_panel_1
       properties: {spacing_above: none, spacing_below: none, vertical_align: full}
       type: FlowPanel
       layout_properties: {grid_position: 'IRNQYE,NHJZJI'}
       components:
-      - name: place_bid
+      - name: button_place_bid
         properties: {text: Place Bid, role: filled-button, align: left, spacing_above: none,
-          spacing_below: none, font: ''}
+          spacing_below: none, font: '', enabled: false}
         type: Button
         layout_properties: {}
       - name: info_icon

@@ -16,7 +16,10 @@ class _home(_homeTemplate):
     url = "http://127.0.0.1:8545/"
     self.provider = ethers.providers.JsonRpcProvider(url)
     self.contract = self.get_contract()
-    self.get_auction_data("Saturday Morning")
+    gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
+    ercabi = app_tables.contract_data.get(name="erc20")['abi']
+    self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
+    
     
     # Any code you write here will run before the form opens.
   def menu_click(self, **event_args):
@@ -60,12 +63,14 @@ class _home(_homeTemplate):
     
       data[f[n]] = v
       n+=1
+    data['nextMinimumBid'] = data['startingPrice'] if data['bidAmount']==0 else int(data['bidAmount']*data['minimumBidIncrement']/(10000000))
     print(data)
+    
     return data
   def get_user_data(self, address):
     data = {}
-    data['Balance']
-    data['Approved']
+    data['Balance'] = int(self.gofurs_contract.balanceOf(self.wc.address).toString())
+    data['Approved'] =int(self.gofurs_contract.allowance(self.wc.address, self.c['address']).toString())
     return data
   def events_catalog(self, event_name, from_block = 0, to_block = "latest"):
     abi = app_tables.contract_data.get(name='series')['abi']

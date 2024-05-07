@@ -8,7 +8,7 @@ components:
   name: navbar_links
   layout_properties: {slot: nav-right}
   components:
-  - name: wallet_connect_1
+  - name: wc
     properties: {project_id: 03f4fc86117e7b57a2db790fd98541a4}
     type: form:dep_3vo618jpin9d6t:WalletConnect
     layout_properties: {}
