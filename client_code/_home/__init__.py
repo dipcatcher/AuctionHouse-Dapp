@@ -87,17 +87,18 @@ class _home(_homeTemplate):
     
     # Query the event logs
     event_filter = self.contract.filters[event_name]()
-    print(event_filter)
-    print(self.contract)
+    
     logs = self.contract.queryFilter(event_filter)
     
     # Process the logs to extract useful information (if needed)
     
     processed_logs = [log.args for log in logs]  # Replace with your own logic if necessary
     for log in processed_logs:
-      print(dir(log))
-      for _ in log:
-        print(_)
+      print(log)
+      print(log[0].hash)
+      print(dir(log[0]))
+      print("_____")
+      
     return processed_logs
       
 class AuctionData:
