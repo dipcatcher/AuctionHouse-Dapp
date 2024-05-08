@@ -11,7 +11,7 @@ class _home(_homeTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     
-    self.menu_click(sender=self.link_auction)
+    
     self.c =  app_tables.contract_data.get(name='series')
     url = "http://127.0.0.1:8545/"
     self.provider = ethers.providers.JsonRpcProvider(url)
@@ -19,6 +19,7 @@ class _home(_homeTemplate):
     gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
     ercabi = app_tables.contract_data.get(name="GOFURS")['abi']
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
+    self.menu_click(sender=self.link_auction)
     
     
     # Any code you write here will run before the form opens.
@@ -86,11 +87,17 @@ class _home(_homeTemplate):
     
     # Query the event logs
     event_filter = self.contract.filters[event_name]()
-    logs = self.contract.queryFilter(event_filter, fromBlock=from_block, toBlock=to_block)
+    print(event_filter)
+    print(self.contract)
+    logs = self.contract.queryFilter(event_filter)
     
     # Process the logs to extract useful information (if needed)
-    processed_logs = [log.args for log in logs]  # Replace with your own logic if necessary
     
+    processed_logs = [log.args for log in logs]  # Replace with your own logic if necessary
+    for log in processed_logs:
+      print(dir(log))
+      for _ in log:
+        print(_)
     return processed_logs
       
 class AuctionData:

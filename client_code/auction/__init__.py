@@ -30,6 +30,8 @@ class auction(auctionTemplate):
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
     self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
+    events = get_open_form().events_catalog("Bid")
+    print(events)
     
 
   def bid_input_change(self, **event_args):
