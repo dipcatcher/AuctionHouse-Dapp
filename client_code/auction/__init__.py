@@ -126,6 +126,7 @@ class auction(auctionTemplate):
         txReceipt = get_open_form().provider.getTransactionReceipt(a.hash)
         #print(txReceipt)
         events = txReceipt.logs
+        transfers = []
         for e in events:
           try:
             ev = giface.parseLog(e)
@@ -140,12 +141,19 @@ class auction(auctionTemplate):
           if ev.name =='ERC20Transfer':
             print(dir(ev))
             print(ev.args)
+            data = {}
+            data['from']=ev.args[0]
+            data['to']=ev.args[1]
+            data['amount']=int(ev.args[2].toString())
+            transfers.append(data)
+            
             
         
         self.bid_input.text = None
       except Exception as e:
         alert(e)
         event_args['sender'].enabled=True
+      print(transfers)
       self.form_show()
         
         
