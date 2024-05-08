@@ -17,7 +17,7 @@ class _home(_homeTemplate):
     self.provider = ethers.providers.JsonRpcProvider(url)
     self.contract = self.get_contract()
     gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
-    ercabi = app_tables.contract_data.get(name="erc20")['abi']
+    ercabi = app_tables.contract_data.get(name="GOFURS")['abi']
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     
     

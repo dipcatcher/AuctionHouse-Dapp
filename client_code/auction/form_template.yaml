@@ -137,6 +137,7 @@ components:
           spacing_below: none, font: '', enabled: false}
         type: Button
         layout_properties: {}
+        event_bindings: {click: button_place_bid_click}
       - name: info_icon
         properties: {text: '', icon: 'fa:info-circle', spacing_above: none, spacing_below: none,
           font_size: 16, icon_align: left_edge, align: left}

@@ -10,6 +10,7 @@ class auction(auctionTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    self.gofurs_abi = app_tables.contract_data.get(name="GOFURS")['abi']
     
     # Any code you write here will run before the form opens.
 
@@ -91,7 +92,8 @@ class auction(auctionTemplate):
       _ = alert(cp, title="Approve Contract to Interact with GOFURS", buttons=[("Submit", True), ("Cancel", False)])
       if _:
         gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
-        ercabi = app_tables.contract_data.get(name="erc20")['abi']
+        ercabi = self.gofurs_abi
+       
         self.gofurs_contract_write=  ethers.Contract(gofurs_address, ercabi, get_open_form().wc.signer)
         try:
           a = anvil.js.await_promise(self.gofurs_contract_write.approve(get_open_form().c['address'], ethers.utils.parseUnits(str(tb.text), 18)))
@@ -104,4 +106,46 @@ class auction(auctionTemplate):
   def info_icon_click(self, **event_args):
     """This method is called when the button is clicked"""
     pass
+
+  def button_place_bid_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    if self.contract_write is None:
+      alert('You must connect your wallet to the site first.')
+      return False
+    else:
+      try:
+        event_args['sender'].enabled = False
+        a = anvil.js.await_promise(self.contract_write.bid("Saturday Morning",self.input_value))
+        a.wait()
+        
+        tx = get_open_form().provider.getTransaction(a.hash)
+        contractAbi = get_open_form().c['abi']
+        iface = ethers.utils.Interface(contractAbi)
+        parsedTx = iface.parseTransaction({"data": tx.data})
+        giface = ethers.utils.Interface(self.gofurs_abi)
+        txReceipt = get_open_form().provider.getTransactionReceipt(a.hash)
+        #print(txReceipt)
+        events = txReceipt.logs
+        for e in events:
+          try:
+            ev = giface.parseLog(e)
+            eventArgs = 1#giface.decodeEventLog(ev.name, ev.data, ev.topics)
+          
+           
+          except:
+            ev = iface.parseLog(e)
+            eventArgs = 0#iface.decodeEventLog(ev.name, ev.data, ev.topics)
+         
+          print(ev.name)
+          if ev.name =='ERC20Transfer':
+            print(dir(ev))
+            print(ev.args)
+            
+        
+        self.bid_input.text = None
+      except Exception as e:
+        alert(e)
+        event_args['sender'].enabled=True
+      self.form_show()
+        
         
