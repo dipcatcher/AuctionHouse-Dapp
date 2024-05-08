@@ -93,11 +93,15 @@ class _home(_homeTemplate):
     # Process the logs to extract useful information (if needed)
     
     processed_logs = [log.args for log in logs]  # Replace with your own logic if necessary
+    iface = ethers.utils.Interface(abi)
+    eventInterface = iface.getEvent(event_name)
+    
     for log in processed_logs:
       print(log)
       print(log[0].hash)
       print(dir(log[0]))
       print("_____")
+      
       
     return processed_logs
       
