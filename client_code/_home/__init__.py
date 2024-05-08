@@ -29,11 +29,14 @@ class _home(_homeTemplate):
       self.page = auction()
     self.content_panel.add_component(self.page)
   
-  def get_contract(self):
+  def get_contract(self, is_read=True):
     c = self.c
     address = c['address']
     abi = c['abi']
-    return ethers.Contract(address, abi, self.provider)
+    if is_read:
+      return ethers.Contract(address, abi, self.provider)
+    else:
+      return ethers.Contract(address, abi, self.wc.signer)
   def get_auction_data(self, name):
     auction_data = self.contract.AUCTION_DATABASE(name)
     data = {}

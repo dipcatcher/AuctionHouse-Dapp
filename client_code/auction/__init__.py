@@ -18,14 +18,18 @@ class auction(auctionTemplate):
     self.address = get_open_form().wc.address
     if self.address is None:
       self.user_data = {"Balance":0, "Approved":0}
+      self.contract_write = None
     else:
       self.user_data = get_open_form().get_user_data(self.address)
-      print(self.user_data)
+      self.contract_write = get_open_form().get_contract(False)
     self.refresh()
   def refresh(self):
     self.auction_data = get_open_form().get_auction_data("Saturday Morning")
     self.label_balance.text = "{:.3f} GOFURS".format( self.user_data['Balance']/(10**18))
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
+    self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
+    self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
+    
 
   def bid_input_change(self, **event_args):
     """This method is called when the text in this text box is edited"""
@@ -39,7 +43,7 @@ class auction(auctionTemplate):
       self.input =0
     try:
       self.input_value = ethers.utils.parseUnits(str(self.input), 18)
-      event_args['sender'].role = ""
+      event_args['sender'].role = "outlined"
       is_valid=True
     except Exception as e:
       print(dir(e))
@@ -73,3 +77,31 @@ class auction(auctionTemplate):
       self.label_error.foreground='red'
       self.label_error.font_size=9
       self.label_error.italic=True
+
+  def button_set_approval_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    if self.contract_write is None:
+      alert('You must connect your wallet to the site first.')
+      return False
+    else:
+      tb = TextBox(type='number', text=100, role ="outlined")
+      cp = ColumnPanel()
+      cp.add_component(Label(text="To prevent having to do an approval step numerous times if you bid more than once or get outbid right before your bid transaction is broadcast, it is recommended to approve a large number. This is safe to do, but for peace of mind after you are done bidding you can set the approval to zero."))
+      cp.add_component(tb)
+      _ = alert(cp, title="Approve Contract to Interact with GOFURS", buttons=[("Submit", True), ("Cancel", False)])
+      if _:
+        gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
+        ercabi = app_tables.contract_data.get(name="erc20")['abi']
+        self.gofurs_contract_write=  ethers.Contract(gofurs_address, ercabi, get_open_form().wc.signer)
+        try:
+          a = anvil.js.await_promise(self.gofurs_contract_write.approve(get_open_form().c['address'], ethers.utils.parseUnits(str(tb.text), 18)))
+          print(dir(a))
+          a.wait()
+        except Exception as e:
+          alert(e)
+        self.form_show()
+
+  def info_icon_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    pass
+        
