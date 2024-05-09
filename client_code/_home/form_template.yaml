@@ -22,6 +22,11 @@ components:
     type: Link
     layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
     event_bindings: {click: menu_click}
+  - name: link_frame
+    properties: {text: Frame NFT, font: Inter, icon: '', align: left}
+    type: Link
+    layout_properties: {grid_position: 'NVCXRX,AFLMMI'}
+    event_bindings: {click: menu_click}
   - name: link_1_copy
     properties: {text: About, font: Inter, icon: '', align: left}
     type: Link

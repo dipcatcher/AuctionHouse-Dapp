@@ -5,6 +5,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
 from ..auction import auction
+from ..frame import frame
 from anvil.js.window import ethers
 import datetime
 class _home(_homeTemplate):
@@ -30,6 +31,8 @@ class _home(_homeTemplate):
     self.target = event_args['sender']
     if self.target==self.link_auction:
       self.page = auction()
+    if self.target == self.link_frame:
+      self.page = frame()
     self.content_panel.add_component(self.page)
   
   def get_contract(self, is_read=True):
