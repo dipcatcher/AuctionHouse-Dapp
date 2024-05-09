@@ -6,6 +6,7 @@ from anvil.tables import app_tables
 import anvil.server
 from ..auction import auction
 from anvil.js.window import ethers
+import datetime
 class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -18,6 +19,7 @@ class _home(_homeTemplate):
     self.contract = self.get_contract()
     gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
     ercabi = app_tables.contract_data.get(name="GOFURS")['abi']
+    self.gofurs_abi = ercabi
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     self.menu_click(sender=self.link_auction)
     
@@ -89,21 +91,50 @@ class _home(_homeTemplate):
     event_filter = self.contract.filters[event_name]()
     
     logs = self.contract.queryFilter(event_filter)
+    data = []
+    for log in logs:
+      d = {}
+      d['hash']=log['transactionHash']
+      d['bidder']=log.args[1]
+      d['bid']=int(log.args[2].toString())
+      d['timestamp']=int(log.args[3].toString())
+      d['datetime']=datetime.datetime.fromtimestamp(d['timestamp'])
+      data.append(d)
+      tx = get_open_form().provider.getTransaction(d['hash'])
+      contractAbi = self.c['abi']
+      iface = ethers.utils.Interface(contractAbi)
+      parsedTx = iface.parseTransaction({"data": tx.data})
+      giface = ethers.utils.Interface(self.gofurs_abi)
+      txReceipt = self.provider.getTransactionReceipt(d['hash'])
+      #print(txReceipt)
+      events = txReceipt.logs
+      transfers = []
+      for e in events:
+        try:
+          ev = giface.parseLog(e)
+          eventArgs = 1#giface.decodeEventLog(ev.name, ev.data, ev.topics)
+        
+          
+        except:
+          ev = iface.parseLog(e)
+          eventArgs = 0#iface.decodeEventLog(ev.name, ev.data, ev.topics)
+        
+       
+        if ev.name =='ERC20Transfer':
+          txdata = {}
+          txdata['from']=ev.args[0]
+          txdata['to']=ev.args[1]
+          txdata['amount']=int(ev.args[2].toString())
+          transfers.append(txdata)
+      d['gofurs_transfers']=transfers
+          
+            
+      
     
-    # Process the logs to extract useful information (if needed)
-    
-    processed_logs = [log.args for log in logs]  # Replace with your own logic if necessary
-    iface = ethers.utils.Interface(abi)
-    eventInterface = iface.getEvent(event_name)
-    
-    for log in processed_logs:
-      print(log)
-      print(log[0].hash)
-      print(dir(log[0]))
-      print("_____")
       
       
-    return processed_logs
+      
+    return data
       
 class AuctionData:
     def __init__(self, last_bid_timestamp, first_bid_timestamp, auction_end_timestamp, latest_bidder, bid_amount, bid_difference_split, auction_started, auction_ended, uri_path, starting_price, auction_duration_hours, extension_period_hours, minimum_bid_increment, bid_token):

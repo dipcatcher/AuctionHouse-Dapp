@@ -31,7 +31,8 @@ class auction(auctionTemplate):
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
     self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
     events = get_open_form().events_catalog("Bid")
-    print(events)
+    events.reverse()
+    self.repeating_panel_2.items= events
     
 
   def bid_input_change(self, **event_args):
@@ -119,43 +120,11 @@ class auction(auctionTemplate):
         event_args['sender'].enabled = False
         a = anvil.js.await_promise(self.contract_write.bid("Saturday Morning",self.input_value))
         a.wait()
-        
-        tx = get_open_form().provider.getTransaction(a.hash)
-        contractAbi = get_open_form().c['abi']
-        iface = ethers.utils.Interface(contractAbi)
-        parsedTx = iface.parseTransaction({"data": tx.data})
-        giface = ethers.utils.Interface(self.gofurs_abi)
-        txReceipt = get_open_form().provider.getTransactionReceipt(a.hash)
-        #print(txReceipt)
-        events = txReceipt.logs
-        transfers = []
-        for e in events:
-          try:
-            ev = giface.parseLog(e)
-            eventArgs = 1#giface.decodeEventLog(ev.name, ev.data, ev.topics)
-          
-           
-          except:
-            ev = iface.parseLog(e)
-            eventArgs = 0#iface.decodeEventLog(ev.name, ev.data, ev.topics)
-         
-          print(ev.name)
-          if ev.name =='ERC20Transfer':
-            print(dir(ev))
-            print(ev.args)
-            data = {}
-            data['from']=ev.args[0]
-            data['to']=ev.args[1]
-            data['amount']=int(ev.args[2].toString())
-            transfers.append(data)
-            
-            
-        
         self.bid_input.text = None
       except Exception as e:
         alert(e)
         event_args['sender'].enabled=True
-      print(transfers)
+    
       self.form_show()
         
         

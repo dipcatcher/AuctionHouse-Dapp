@@ -1,0 +1,31 @@
+is_package: true
+container:
+  type: DataRowPanel
+  properties: {italic: false}
+components:
+- name: button_1
+  properties: {text: '', icon: 'fa:caret-down', icon_align: left_edge, spacing_above: none}
+  type: Button
+  layout_properties: {column: JKSDUP}
+  event_bindings: {click: button_1_click}
+- name: label_1
+  properties: {role: body, spacing_above: medium, align: right}
+  type: Label
+  layout_properties: {column: RDIBOO}
+- name: label_address
+  properties: {role: body, spacing_above: medium}
+  type: Label
+  layout_properties: {column: VJQQOR}
+- name: column_panel_1
+  properties: {visible: false}
+  type: ColumnPanel
+  layout_properties: {}
+  components:
+  - name: link_tx
+    properties: {icon: 'fa:internet-explorer', text: view transaction}
+    type: Link
+    layout_properties: {grid_position: 'YPYDSU,OMKNIQ'}
+  - name: label_transactions
+    properties: {}
+    type: Label
+    layout_properties: {grid_position: 'HOKHTL,XTZSGD'}

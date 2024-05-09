@@ -206,7 +206,21 @@ components:
       properties: {text: Bid History, role: body, spacing_above: medium, spacing_below: large,
         bold: true, font: Inter, font_size: 16}
       type: Label
-      layout_properties: {grid_position: 'PJWXCC,BUUSCZ'}
+      layout_properties: {grid_position: 'BZZJAQ,TSACWC'}
+    - name: data_grid_1
+      properties:
+        columns:
+        - {id: JKSDUP, title: '', data_key: column_1, width: 33.09375, expand: false}
+        - {id: VJQQOR, title: Bid History, data_key: column_2}
+        - {id: RDIBOO, data_key: column_1, title: ''}
+        auto_header: false
+        rows_per_page: 5
+      type: DataGrid
+      components:
+      - name: repeating_panel_2
+        properties: {item_template: auction.RowTemplate1}
+        type: RepeatingPanel
+      layout_properties: {grid_position: 'CXIOWN,ZSVOFM'}
     - name: repeating_panel_1
       properties: {item_template: auction.ItemTemplate1}
       type: RepeatingPanel
