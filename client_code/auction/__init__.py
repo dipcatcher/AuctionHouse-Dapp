@@ -114,28 +114,36 @@ class auction(auctionTemplate):
 
   def button_place_bid_click(self, **event_args):
     """This method is called when the button is clicked"""
-    self.bid_input_change(sender=self.bid_input)
-    if not self.is_good:
-      return False
-    if self.contract_write is None:
-      alert('You must connect your wallet to the site first.')
-      return False
+    if event_args['sender'].text == 'Finalize Auction':
+      pass
     else:
-      try:
-        event_args['sender'].enabled = False
-        a = anvil.js.await_promise(self.contract_write.bid("Saturday Morning",self.input_value))
-        a.wait()
-        self.bid_input.text = None
-      except Exception as e:
-        alert(e)
-        event_args['sender'].enabled=True
-    
-      self.form_show()
+      
+      self.bid_input_change(sender=self.bid_input)
+      if not self.is_good:
+        return False
+      if self.contract_write is None:
+        alert('You must connect your wallet to the site first.')
+        return False
+      else:
+        try:
+          event_args['sender'].enabled = False
+          a = anvil.js.await_promise(self.contract_write.bid("Saturday Morning",self.input_value))
+          a.wait()
+          self.bid_input.text = None
+        except Exception as e:
+          alert(e)
+          event_args['sender'].enabled=True
+      
+        self.form_show()
 
   def timer_1_tick(self, **event_args):
     """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
     a,b = get_open_form().get_remaining_auction_time("Saturday Morning")
     print(a, b)
     self.label_time_remaining.text = b
+    if a == 0:
+      self.timer_1.interval=0
+      self.button_place_bid.text = "Finalize Auction"
+      self.bid_input.enabled=False
         
         
