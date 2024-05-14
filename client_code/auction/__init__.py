@@ -5,7 +5,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.js
 from anvil.js.window import ethers
-
+from ..gainful_auction import gainful_auction
 class auction(auctionTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -33,6 +33,9 @@ class auction(auctionTemplate):
     self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
     events = get_open_form().events_catalog("Bid")
     events.reverse()
+    if self.auction_data['auctionEnded']:
+      self.button_place_bid.text = "Auction Over"
+      self.button_place_bid.enabled = False
     self.repeating_panel_2.items= events
     
 
@@ -109,13 +112,25 @@ class auction(auctionTemplate):
         self.form_show()
 
   def info_icon_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    pass
+    alert(gainful_auction(), large=True)
 
   def button_place_bid_click(self, **event_args):
     """This method is called when the button is clicked"""
     if event_args['sender'].text == 'Finalize Auction':
-      pass
+      if self.contract_write is None:
+        alert('You must connect your wallet to the site first.')
+        return False
+      else:
+        try:
+          event_args['sender'].enabled = False
+          a = anvil.js.await_promise(self.contract_write.endAuction("Saturday Morning"))
+          a.wait()
+          
+        except Exception as e:
+          alert(e)
+          event_args['sender'].enabled=True
+      
+        self.form_show()
     else:
       
       self.bid_input_change(sender=self.bid_input)
@@ -145,5 +160,6 @@ class auction(auctionTemplate):
       self.timer_1.interval=0
       self.button_place_bid.text = "Finalize Auction"
       self.bid_input.enabled=False
+    
         
         
