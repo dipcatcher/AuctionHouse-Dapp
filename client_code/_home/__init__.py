@@ -8,6 +8,7 @@ from ..auction import auction
 from ..frame import frame
 from anvil.js.window import ethers
 import datetime
+from datetime import timedelta
 class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -138,6 +139,35 @@ class _home(_homeTemplate):
       
       
     return data
+  def get_remaining_auction_time(self, auction_name):
+    # Retrieve auction data
+    auction_data = self.get_auction_data(auction_name)
+    auction_end_timestamp = auction_data['auctionEndTimestamp']
+    
+    # Get the current block timestamp from the blockchain
+    current_block = self.provider.getBlock("latest")
+    current_timestamp = current_block['timestamp']
+    
+    # Calculate remaining time in seconds
+    remaining_seconds = auction_end_timestamp - current_timestamp
+    
+    if remaining_seconds <= 0:
+        readable_time = "Auction has ended"
+        remaining_seconds = 0
+    else:
+        # Convert remaining seconds to a readable format
+        remaining_time = timedelta(seconds=remaining_seconds)
+        
+        # Split the remaining time into days, hours, minutes, and seconds
+        days = remaining_time.days
+        hours, remainder = divmod(remaining_time.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        
+        # Format readable time
+        readable_time = f"{days} days {hours} hours {minutes} minutes {seconds} seconds" if days > 0 else f"{hours} hours {minutes} minutes {seconds} seconds"
+
+    return remaining_seconds, readable_time
+
       
 class AuctionData:
     def __init__(self, last_bid_timestamp, first_bid_timestamp, auction_end_timestamp, latest_bidder, bid_amount, bid_difference_split, auction_started, auction_ended, uri_path, starting_price, auction_duration_hours, extension_period_hours, minimum_bid_increment, bid_token):

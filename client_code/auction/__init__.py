@@ -25,6 +25,7 @@ class auction(auctionTemplate):
       self.contract_write = get_open_form().get_contract(False)
     self.refresh()
   def refresh(self):
+    self.timer_1_tick()
     self.auction_data = get_open_form().get_auction_data("Saturday Morning")
     self.label_balance.text = "{:.3f} GOFURS".format( self.user_data['Balance']/(10**18))
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
@@ -41,46 +42,47 @@ class auction(auctionTemplate):
     is_balance = False
     is_valid = False
     is_enough = False
+    self.is_good=False
     self.input = event_args['sender'].text
     error = ""
+    e = ColumnPanel()
     if self.input in [0, None, "", " "]:
       self.input =0
     try:
       self.input_value = ethers.utils.parseUnits(str(self.input), 18)
       event_args['sender'].role = "outlined"
       is_valid=True
-    except Exception as e:
-      print(dir(e))
-      print(e.original_error.message)
-      error+="Invalid number entry. "
+    except Exception as ee:
+      print(dir(ee))
+      print(ee.original_error.message)
+      
+      e.add_component(Label(text="Invalid number entry. ", font_size=10, foreground='red', role='body'))
     val = int(self.input_value.toString())
     if  val > self.user_data['Approved']:
       self.button_set_approval.role = 'filled-button'
       is_approved = False
-      error +="You must approve the contract to interact with your GOFURS. "
+      t="You must approve the contract to interact with your GOFURS. "
+      e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       self.button_set_approval.role = None
       is_approved=True
     if val >self.user_data['Balance']:
       self.button_buy_gofurs.role = 'filled-button'
-      error += "You do not have that many GOFURS. "
+      t= "You do not have that many GOFURS. "
+      e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       self.button_buy_gofurs.role = None
       is_balance=True
 
     if val<self.auction_data['nextMinimumBid']:
-      error += "Your bid must exceed the minimum bid. "
+      t= "Your bid must exceed the minimum bid. "
+      e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       is_enough=True
-    self.button_place_bid.enabled = all([is_approved, is_balance, is_valid, is_enough])
-    if self.button_place_bid.enabled:
-      self.label_error.visible=False
-    else:
-      self.label_error.visible = True
-      self.label_error.text = error
-      self.label_error.foreground='red'
-      self.label_error.font_size=9
-      self.label_error.italic=True
+    self.column_panel_error.clear()
+    self.column_panel_error.add_component(e)
+    self.is_good = all([is_approved, is_balance, is_valid, is_enough])
+    
 
   def button_set_approval_click(self, **event_args):
     """This method is called when the button is clicked"""
@@ -112,6 +114,9 @@ class auction(auctionTemplate):
 
   def button_place_bid_click(self, **event_args):
     """This method is called when the button is clicked"""
+    self.bid_input_change(sender=self.bid_input)
+    if not self.is_good:
+      return False
     if self.contract_write is None:
       alert('You must connect your wallet to the site first.')
       return False
@@ -126,5 +131,11 @@ class auction(auctionTemplate):
         event_args['sender'].enabled=True
     
       self.form_show()
+
+  def timer_1_tick(self, **event_args):
+    """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
+    a,b = get_open_form().get_remaining_auction_time("Saturday Morning")
+    print(a, b)
+    self.label_time_remaining.text = b
         
         

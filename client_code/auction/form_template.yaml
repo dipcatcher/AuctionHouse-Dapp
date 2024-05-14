@@ -122,11 +122,11 @@ components:
         type: number}
       type: TextBox
       layout_properties: {grid_position: 'KJMIFY,WRGPQT'}
-      event_bindings: {change: bid_input_change}
-    - name: label_error
-      properties: {spacing_above: none, spacing_below: none, role: body, visible: false}
-      type: Label
-      layout_properties: {grid_position: 'JQAUXB,DHIWLO'}
+      event_bindings: {}
+    - name: column_panel_error
+      properties: {}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'ZRLDIC,LKTGMB'}
     - name: flow_panel_1
       properties: {spacing_above: none, spacing_below: none, vertical_align: full}
       type: FlowPanel
@@ -134,7 +134,7 @@ components:
       components:
       - name: button_place_bid
         properties: {text: Place Bid, role: filled-button, align: left, spacing_above: none,
-          spacing_below: none, font: '', enabled: false}
+          spacing_below: none, font: '', enabled: true}
         type: Button
         layout_properties: {}
         event_bindings: {click: button_place_bid_click}
@@ -148,7 +148,7 @@ components:
       type: FlowPanel
       layout_properties: {grid_position: 'IRNQYE,YWJYGR'}
       components:
-      - name: ending_countdown
+      - name: label_time_remaining
         properties: {text: 9h 12m 5s, spacing_above: small, spacing_below: none, bold: true,
           font_size: 16, role: body}
         type: Label
@@ -225,4 +225,9 @@ components:
       properties: {item_template: auction.ItemTemplate1}
       type: RepeatingPanel
       layout_properties: {grid_position: 'BDMEUN,VQMHGA'}
+- name: timer_1
+  properties: {interval: 12}
+  type: Timer
+  layout_properties: {grid_position: 'XTSWDY,EZESGI'}
+  event_bindings: {tick: timer_1_tick}
 is_package: true
