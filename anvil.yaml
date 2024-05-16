@@ -40,4 +40,9 @@ db_schema:
       admin_ui: {width: 200, order: 2}
       type: simpleObject
     title: contract_data
+  table_2:
+    client: none
+    server: full
+    columns: []
+    title: Table 2
 renamed: true
