@@ -5,6 +5,7 @@ import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.js
 from anvil.js.window import ethers
+import anvil.server
 from ..gainful_auction import gainful_auction
 class auction(auctionTemplate):
   def __init__(self, **properties):
@@ -25,18 +26,24 @@ class auction(auctionTemplate):
       self.contract_write = get_open_form().get_contract(False)
     self.refresh()
   def refresh(self):
+    self.label_bid_history.text = "Loading Bid History..."
+    self.label_bid_history.icon="_/theme/33Ho.gif"
     self.timer_1_tick()
     self.auction_data = get_open_form().get_auction_data("Saturday Morning")
     self.label_balance.text = "{:.3f} GOFURS".format( self.user_data['Balance']/(10**18))
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
     self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
-    events = get_open_form().events_catalog("Bid")
-    events.reverse()
+    
     if self.auction_data['auctionEnded']:
       self.button_place_bid.text = "Auction Over"
       self.button_place_bid.enabled = False
-    self.repeating_panel_2.items= events
+    with anvil.server.no_loading_indicator:
+      events = get_open_form().events_catalog("Bid")
+      events.reverse()
+      self.repeating_panel_2.items= events
+      self.label_bid_history.text = "Bid History"
+      self.label_bid_history.icon = ""
     
 
   def bid_input_change(self, **event_args):
@@ -46,6 +53,7 @@ class auction(auctionTemplate):
     is_valid = False
     is_enough = False
     self.is_good=False
+    is_pls = False
     self.input = event_args['sender'].text
     error = ""
     e = ColumnPanel()
@@ -82,9 +90,14 @@ class auction(auctionTemplate):
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       is_enough=True
+    if get_open_form().wc.chainId not in [31337, 369]:
+      t = "You must be connected to PulseChain."
+      e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
+    else:
+      is_pls = True
     self.column_panel_error.clear()
     self.column_panel_error.add_component(e)
-    self.is_good = all([is_approved, is_balance, is_valid, is_enough])
+    self.is_good = all([is_approved, is_balance, is_valid, is_enough, is_pls])
     
 
   def button_set_approval_click(self, **event_args):
