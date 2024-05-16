@@ -23,8 +23,10 @@ class _home(_homeTemplate):
     ercabi = app_tables.contract_data.get(name="GOFURS")['abi']
     self.gofurs_abi = ercabi
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
-    self.menu_click(sender=self.link_auction)
-    
+    self.latest = self.link_auction
+    self.refresh()
+  def refresh(self):
+    self.menu_click(sender=self.latest)
     
     # Any code you write here will run before the form opens.
   def menu_click(self, **event_args):
@@ -35,6 +37,7 @@ class _home(_homeTemplate):
     if self.target == self.link_frame:
       self.page = frame()
     self.content_panel.add_component(self.page)
+    self.latest = self.target
   
   def get_contract(self, is_read=True):
     c = self.c
