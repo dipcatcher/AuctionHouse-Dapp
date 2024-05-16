@@ -16,7 +16,7 @@ class _home(_homeTemplate):
     
     
     self.c =  app_tables.contract_data.get(name='series')
-    url = "http://127.0.0.1:8545/"
+    url = "https://1386-2601-283-4c00-c7b0-1c4b-dec2-95db-6e51.ngrok-free.app/"
     self.provider = ethers.providers.JsonRpcProvider(url)
     self.contract = self.get_contract()
     gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
@@ -24,9 +24,13 @@ class _home(_homeTemplate):
     self.gofurs_abi = ercabi
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     self.latest = self.link_auction
+    
     self.refresh()
   def refresh(self):
-    self.menu_click(sender=self.latest)
+    try:
+      self.menu_click(sender=self.latest)
+    except:
+      self.menu_click(sender=self.link_auction)
     
     # Any code you write here will run before the form opens.
   def menu_click(self, **event_args):
@@ -170,6 +174,9 @@ class _home(_homeTemplate):
         readable_time = f"{days} days {hours} hours {minutes} minutes {seconds} seconds" if days > 0 else f"{hours} hours {minutes} minutes {seconds} seconds"
 
     return remaining_seconds, readable_time
+
+  def wc_connect(self, **event_args):
+    self.refresh()
 
       
 class AuctionData:

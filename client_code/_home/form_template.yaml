@@ -14,6 +14,7 @@ components:
       chain_ids: ['8008135', '1', '666666666', '369']
     type: form:dep_3mhfdrg7acs:WalletConnect
     layout_properties: {}
+    event_bindings: {connect: wc_connect}
 - name: column_panel_1
   properties: {}
   type: ColumnPanel

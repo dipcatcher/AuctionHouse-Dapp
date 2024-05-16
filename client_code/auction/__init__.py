@@ -12,7 +12,7 @@ class auction(auctionTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.gofurs_abi = app_tables.contract_data.get(name="GOFURS")['abi']
-    
+    self.auction_name = "test"
     # Any code you write here will run before the form opens.
 
   def form_show(self, **event_args):
@@ -26,10 +26,11 @@ class auction(auctionTemplate):
       self.contract_write = get_open_form().get_contract(False)
     self.refresh()
   def refresh(self):
+    self.button_place_bid.enabled=True
     self.label_bid_history.text = "Loading Bid History..."
     self.label_bid_history.icon="_/theme/33Ho.gif"
     self.timer_1_tick()
-    self.auction_data = get_open_form().get_auction_data("Saturday Morning")
+    self.auction_data = get_open_form().get_auction_data(self.auction_name)
     self.label_balance.text = "{:.3f} GOFURS".format( self.user_data['Balance']/(10**18))
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
@@ -90,8 +91,8 @@ class auction(auctionTemplate):
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       is_enough=True
-    if get_open_form().wc.chainId not in [31337, 369]:
-      t = "You must be connected to PulseChain."
+    if get_open_form().wc.chainId not in [8008135, 369]:
+      t = "You must be connected to G Chain Testnet."
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       is_pls = True
@@ -136,7 +137,7 @@ class auction(auctionTemplate):
       else:
         try:
           event_args['sender'].enabled = False
-          a = anvil.js.await_promise(self.contract_write.endAuction("Saturday Morning"))
+          a = anvil.js.await_promise(self.contract_write.endAuction(self.auction_name))
           a.wait()
           
         except Exception as e:
@@ -155,7 +156,7 @@ class auction(auctionTemplate):
       else:
         try:
           event_args['sender'].enabled = False
-          a = anvil.js.await_promise(self.contract_write.bid("Saturday Morning",self.input_value))
+          a = anvil.js.await_promise(self.contract_write.bid(self.auction_name,self.input_value))
           a.wait()
           self.bid_input.text = None
         except Exception as e:
@@ -166,7 +167,7 @@ class auction(auctionTemplate):
 
   def timer_1_tick(self, **event_args):
     """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
-    a,b = get_open_form().get_remaining_auction_time("Saturday Morning")
+    a,b = get_open_form().get_remaining_auction_time(self.auction_name)
     print(a, b)
     self.label_time_remaining.text = b
     if a == 0:
