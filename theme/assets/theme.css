@@ -1,3 +1,10 @@
+.anvil-rich-text {
+
+    padding: 0;
+    margin: 0;
+    border: 0; /* Optional: Remove any default border if present */
+
+}
 .anvil-role-highlighted {
    
     
