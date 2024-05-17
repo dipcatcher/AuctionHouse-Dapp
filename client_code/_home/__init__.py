@@ -26,7 +26,9 @@ class _home(_homeTemplate):
     self.latest = self.link_auction
     self.elogs = []
     self.setup_event_listener()
+    print("ok")
     self.refresh()
+    print("yea")
   def refresh(self):
     try:
       self.menu_click(sender=self.latest)
