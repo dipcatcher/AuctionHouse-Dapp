@@ -15,8 +15,8 @@ class RowTemplate1(RowTemplate1Template):
     self.scan_url = "https://scan.9mm.pro/tx/{}".format(self.item['hash'])
     self.link_tx.url = self.scan_url
     self.label_1.text = "{:.4f} GOFURS".format( self.item['bid']/(10**18))
-    tx_text = "1) {:.4f} GOFURS sent from Bidder to Contract\n2) {:.4f} GOFURS fee sent from Contract to Protocol\n3) {:.4f} GOFURS sent from Contract to Prior Bidder\n4) {:.4f} GOFURS sent from Contract to Auctioneer (burnt)".format(
-      self.item['gofurs_transfers'][0]['amount']/(10**18), self.item['gofurs_transfers'][1]['amount']/(10**18), self.item['gofurs_transfers'][2]['amount']/(10**18), self.item['gofurs_transfers'][3]['amount']/(10**18)
+    tx_text = "1) {:.4f} GOFURS sent from Bidder to Contract\n2){:.4f} GOFURS sent from Contract to Prior Bidder\n3) {:.4f} GOFURS sent from Contract to Auctioneer (burnt)".format(
+      self.item['gofurs_transfers'][0]['amount']/(10**18),self.item['gofurs_transfers'][2]['amount']/(10**18), self.item['gofurs_transfers'][3]['amount']/(10**18)
     )
     
     

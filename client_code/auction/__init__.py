@@ -13,6 +13,7 @@ class auction(auctionTemplate):
     self.init_components(**properties)
     self.gofurs_abi = app_tables.contract_data.get(name="GOFURS")['abi']
     self.auction_name = "test"
+    self.n = 0
     # Any code you write here will run before the form opens.
 
   def form_show(self, **event_args):
@@ -35,7 +36,7 @@ class auction(auctionTemplate):
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
     self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
-    
+    self.column_panel_error.clear()
     if self.auction_data['auctionEnded']:
       self.button_place_bid.text = "Auction Over"
       self.button_place_bid.enabled = False
@@ -169,13 +170,16 @@ class auction(auctionTemplate):
 
   def timer_1_tick(self, **event_args):
     """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
-    a,b = get_open_form().get_remaining_auction_time(self.auction_name)
-    print(a, b)
+    refresh = self.n>30
+    a,b = get_open_form().get_remaining_auction_time(self.auction_name,refresh)
+   
     self.label_time_remaining.text = b
     if a == 0:
       self.timer_1.interval=0
       self.button_place_bid.text = "Finalize Auction"
       self.bid_input.enabled=False
-    
+    self.n +=1
+    if refresh:
+      self.n=0
         
         

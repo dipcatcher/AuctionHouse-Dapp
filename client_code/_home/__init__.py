@@ -8,7 +8,7 @@ from ..auction import auction
 from ..frame import frame
 from anvil.js.window import ethers
 import datetime
-from datetime import timedelta
+from datetime import timedelta, timezone
 class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -31,6 +31,7 @@ class _home(_homeTemplate):
     print("yea")
   def refresh(self):
     try:
+      self.auction_data = self.get_auction_data("test")
       self.menu_click(sender=self.latest)
     except:
       self.menu_click(sender=self.link_auction)
@@ -149,15 +150,23 @@ class _home(_homeTemplate):
       
       
     return data
-  def get_remaining_auction_time(self, auction_name):
+  def get_remaining_auction_time(self, auction_name, refresh):
     # Retrieve auction data
-    auction_data = self.get_auction_data(auction_name)
-    auction_end_timestamp = auction_data['auctionEndTimestamp']
+    if refresh:
+      
+      auction_data = self.get_auction_data(auction_name)
+      auction_end_timestamp = auction_data['auctionEndTimestamp']
     
     # Get the current block timestamp from the blockchain
-    current_block = self.provider.getBlock("latest")
-    current_timestamp = current_block['timestamp']
-    
+      current_block = self.provider.getBlock("latest")
+      current_timestamp = current_block['timestamp']
+    else:
+      auction_end_timestamp=self.auction_data['auctionEndTimestamp']
+      now = datetime.datetime.now(timezone.utc)
+  
+      # Get the Unix timestamp
+      unix_timestamp = int(now.timestamp())
+      current_timestamp = unix_timestamp
     # Calculate remaining time in seconds
     remaining_seconds = auction_end_timestamp - current_timestamp
     
@@ -174,7 +183,7 @@ class _home(_homeTemplate):
         minutes, seconds = divmod(remainder, 60)
         
         # Format readable time
-        readable_time = f"{days} days {hours} hours {minutes} minutes {seconds} seconds" if days > 0 else f"{hours} hours {minutes} minutes {seconds} seconds"
+        readable_time = f"{days}d {hours}h {minutes}m {seconds}s" if days > 0 else f"{hours}h {minutes}m {seconds}s"
 
     return remaining_seconds, readable_time
   def setup_event_listener(self):
