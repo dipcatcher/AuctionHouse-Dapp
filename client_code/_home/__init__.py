@@ -24,7 +24,7 @@ class _home(_homeTemplate):
     self.gofurs_abi = ercabi
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     self.latest = self.link_auction
-    
+    self.setup_event_listener()
     self.refresh()
   def refresh(self):
     try:
@@ -174,27 +174,25 @@ class _home(_homeTemplate):
         readable_time = f"{days} days {hours} hours {minutes} minutes {seconds} seconds" if days > 0 else f"{hours} hours {minutes} minutes {seconds} seconds"
 
     return remaining_seconds, readable_time
+  def setup_event_listener(self):
+    contract_address = self.c['address']
+    abi = self.c['abi']
+    provider_url = app_tables.wallet_chains.get(chainId=8008135)['rpcUrl']
+    event_name = "Bid"  # Replace with the actual event name you want to listen for
+    
+    # Convert ABI to JSON string for passing to JavaScript
+    abi_json = anvil.js.window.JSON.stringify(abi)
+    
+    # Call ethers.js to set up event listener
+    self.provider.on("Bid", self.handle_event)
+    
+    
 
+  def handle_event(self, eventData):
+    # Handle the event data here
+    print("Event data received: ", eventData)
+    # You can update UI or trigger other actions based on the event data
   def wc_connect(self, **event_args):
     self.refresh()
 
       
-class AuctionData:
-    def __init__(self, last_bid_timestamp, first_bid_timestamp, auction_end_timestamp, latest_bidder, bid_amount, bid_difference_split, auction_started, auction_ended, uri_path, starting_price, auction_duration_hours, extension_period_hours, minimum_bid_increment, bid_token):
-        self.last_bid_timestamp = last_bid_timestamp
-        self.first_bid_timestamp = first_bid_timestamp
-        self.auction_end_timestamp = auction_end_timestamp
-        self.latest_bidder = latest_bidder
-        self.bid_amount = bid_amount
-        self.bid_difference_split = bid_difference_split
-        self.auction_started = auction_started
-        self.auction_ended = auction_ended
-        self.uri_path = uri_path
-        self.starting_price = starting_price
-        self.auction_duration_hours = auction_duration_hours
-        self.extension_period_hours = extension_period_hours
-        self.minimum_bid_increment = minimum_bid_increment
-        self.bid_token = bid_token
-
-    
-    

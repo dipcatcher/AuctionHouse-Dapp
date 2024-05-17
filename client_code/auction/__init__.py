@@ -99,6 +99,7 @@ class auction(auctionTemplate):
     self.column_panel_error.clear()
     self.column_panel_error.add_component(e)
     self.is_good = all([is_approved, is_balance, is_valid, is_enough, is_pls])
+    print(self.is_good, 'isgood')
     
 
   def button_set_approval_click(self, **event_args):
@@ -148,6 +149,7 @@ class auction(auctionTemplate):
     else:
       
       self.bid_input_change(sender=self.bid_input)
+      print(self.is_good)
       if not self.is_good:
         return False
       if self.contract_write is None:
