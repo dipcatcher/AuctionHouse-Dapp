@@ -171,7 +171,7 @@ class auction(auctionTemplate):
 
   def timer_1_tick(self, **event_args):
     """This method is called Every [interval] seconds. Does not trigger if [interval] is 0."""
-    refresh = self.n>30
+    refresh = self.n>12
     a,b = get_open_form().get_remaining_auction_time(self.auction_name,refresh)
    
     self.label_time_remaining.text = b

@@ -156,6 +156,9 @@ class _home(_homeTemplate):
     if refresh:
       
       auction_data = self.get_auction_data(auction_name)
+      if auction_data['bidAmount'] !=self.auction_data['bidAmount']:
+        
+      self.auction_data
       auction_end_timestamp = auction_data['auctionEndTimestamp']
     
     # Get the current block timestamp from the blockchain
