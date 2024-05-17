@@ -72,15 +72,16 @@ class auction(auctionTemplate):
       e.add_component(Label(text="Invalid number entry. ", font_size=10, foreground='red', role='body'))
     val = int(self.input_value.toString())
     if  val > self.user_data['Approved']:
-      self.button_set_approval.role = 'filled-button'
+      self.button_set_approval.role = 'outlined-button'
       is_approved = False
       t="You must approve the contract to interact with your GOFURS. "
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
+      self.button_set_approval_click(sender=self.button_set_approval)
     else:
       self.button_set_approval.role = None
       is_approved=True
     if val >self.user_data['Balance']:
-      self.button_buy_gofurs.role = 'filled-button'
+      self.button_buy_gofurs.role = 'outlined-button'
       t= "You do not have that many GOFURS. "
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
@@ -109,9 +110,9 @@ class auction(auctionTemplate):
       alert('You must connect your wallet to the site first.')
       return False
     else:
-      tb = TextBox(type='number', text=100, role ="outlined")
+      tb = TextBox(type='number', text=10, role ="outlined")
       cp = ColumnPanel()
-      cp.add_component(Label(text="To prevent having to do an approval step numerous times if you bid more than once or get outbid right before your bid transaction is broadcast, it is recommended to approve a large number. This is safe to do, but for peace of mind after you are done bidding you can set the approval to zero."))
+      cp.add_component(Label(text="Before you can submit your bid, you must approve at least that many GOFURS to be used by the auction contract. \n\nPro Tip: To prevent having to do an approval step numerous times if you bid more than once or get outbid right before your bid transaction is broadcast, it is recommended to approve a number larger than your bid amount. This is safe to do, but for peace of mind after you are done bidding you can set the approval to zero."))
       cp.add_component(tb)
       _ = alert(cp, title="Approve Contract to Interact with GOFURS", buttons=[("Submit", True), ("Cancel", False)])
       if _:

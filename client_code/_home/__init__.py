@@ -18,6 +18,7 @@ class _home(_homeTemplate):
     self.c =  app_tables.contract_data.get(name='series')
     url = app_tables.wallet_chains.get(chainId=8008135)['rpcUrl']
     self.provider = ethers.providers.JsonRpcProvider(url)
+    self.latest_block = anvil.js.await_promise(self.provider.getBlockNumber())
     self.contract = self.get_contract()
     gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
     ercabi = app_tables.contract_data.get(name="GOFURS")['abi']
@@ -189,15 +190,15 @@ class _home(_homeTemplate):
   def setup_event_listener(self):
     # Call ethers.js to set up event listener
  
-    self.contract.on("Bid", self.handle_event)
+    self.contract.on("Bid", self.handle_event, self.latest_block+1)
     
     
 
   def handle_event(self, *eventData):
     # Handle the event data here
     self.elogs.append(eventData)
-    print("Event data received: ", eventData)
-    print(len(self.elogs))
+    Notification("Refreshing Bid Record...", title="New Bid Detected", style='success').show()
+    
     # You can update UI or trigger other actions based on the event data
   def wc_connect(self, **event_args):
     self.refresh()
