@@ -24,6 +24,7 @@ class _home(_homeTemplate):
     self.gofurs_abi = ercabi
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     self.latest = self.link_auction
+    self.elogs = []
     self.setup_event_listener()
     self.refresh()
   def refresh(self):
@@ -81,7 +82,7 @@ class _home(_homeTemplate):
       data[f[n]] = v
       n+=1
     data['nextMinimumBid'] = data['startingPrice'] if data['bidAmount']==0 else int(data['bidAmount']*data['minimumBidIncrement']/(10000000))
-    print(data)
+   
     
     return data
   def get_user_data(self, address):
@@ -175,22 +176,17 @@ class _home(_homeTemplate):
 
     return remaining_seconds, readable_time
   def setup_event_listener(self):
-    contract_address = self.c['address']
-    abi = self.c['abi']
-    provider_url = app_tables.wallet_chains.get(chainId=8008135)['rpcUrl']
-    event_name = "Bid"  # Replace with the actual event name you want to listen for
-    
-    # Convert ABI to JSON string for passing to JavaScript
-    abi_json = anvil.js.window.JSON.stringify(abi)
-    
     # Call ethers.js to set up event listener
-    self.provider.on("Bid", self.handle_event)
+ 
+    self.contract.on("Bid", self.handle_event)
     
     
 
-  def handle_event(self, eventData):
+  def handle_event(self, *eventData):
     # Handle the event data here
+    self.elogs.append(eventData)
     print("Event data received: ", eventData)
+    print(len(self.elogs))
     # You can update UI or trigger other actions based on the event data
   def wc_connect(self, **event_args):
     self.refresh()
