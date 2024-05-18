@@ -156,8 +156,7 @@ class _home(_homeTemplate):
     if refresh:
       
       auction_data = self.get_auction_data(auction_name)
-      if auction_data['bidAmount'] !=self.auction_data['bidAmount']:
-        
+      
       
       auction_end_timestamp = auction_data['auctionEndTimestamp']
     
@@ -193,8 +192,8 @@ class _home(_homeTemplate):
   def setup_event_listener(self):
     # Call ethers.js to set up event listener
  
-    self.contract.on("Bid", self.handle_event, self.latest_block+1)
-    
+    #self.contract.on("Bid", self.handle_event, self.latest_block+1)
+    pass
     
 
   def handle_event(self, *eventData):
