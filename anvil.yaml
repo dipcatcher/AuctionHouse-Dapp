@@ -1,8 +1,5 @@
 correct_dependency_ids: {}
 dependencies:
-- dep_id: dep_3vo618jpin9d6t
-  version: {dev: false}
-  resolution_hints: {app_id: A5CDHKFQLA7JSIWE, name: WalletConnect Multichain, package_name: WalletConnectMultichain}
 - dep_id: dep_3mhfdrg7acs
   version: {dev: false}
   resolution_hints: {app_id: 77VDFSH3FX6KZQ6F, name: WalletConnect Hub, package_name: WalletConnectHub}
