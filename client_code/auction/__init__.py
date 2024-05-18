@@ -36,6 +36,7 @@ class auction(auctionTemplate):
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
     self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
+    self.link_owner.text = "{}...{}".format(self.auction_data['latestBidder'][0:4], self.auction_data['latestBidder'][-4:]) if self.auction_data['auctionEnded'] else "Pending Auction Results"
     self.column_panel_error.clear()
     if self.auction_data['auctionEnded']:
       self.button_place_bid.text = "Auction Over"
