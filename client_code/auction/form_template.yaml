@@ -235,7 +235,7 @@ components:
       type: RepeatingPanel
       layout_properties: {grid_position: 'BDMEUN,VQMHGA'}
 - name: timer_1
-  properties: {interval: 1}
+  properties: {interval: 0}
   type: Timer
   layout_properties: {grid_position: 'XTSWDY,EZESGI'}
   event_bindings: {tick: timer_1_tick}

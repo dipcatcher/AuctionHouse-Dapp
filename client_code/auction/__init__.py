@@ -30,23 +30,25 @@ class auction(auctionTemplate):
     self.button_place_bid.enabled=True
     self.label_bid_history.text = "Loading Bid History..."
     self.label_bid_history.icon="_/theme/33Ho.gif"
-    self.timer_1_tick()
+    
     self.auction_data = get_open_form().get_auction_data(self.auction_name)
+    if self.auction_data['auctionEnded']:
+      self.button_place_bid.visible=False
     self.label_balance.text = "{:.3f} GOFURS".format( self.user_data['Balance']/(10**18))
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
     self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
     self.link_owner.text = "{}...{}".format(self.auction_data['latestBidder'][0:4], self.auction_data['latestBidder'][-4:]) if self.auction_data['auctionEnded'] else "Pending Auction Results"
     self.column_panel_error.clear()
-    if self.auction_data['auctionEnded']:
-      self.button_place_bid.text = "Auction Over"
-      self.button_place_bid.enabled = False
+    
     with anvil.server.no_loading_indicator:
       events = get_open_form().events_catalog("Bid")
       events.reverse()
       self.repeating_panel_2.items= events
       self.label_bid_history.text = "Bid History"
       self.label_bid_history.icon = ""
+    self.timer_1_tick()
+    self.timer_1.interval = 1
     
 
   def bid_input_change(self, **event_args):
@@ -111,7 +113,12 @@ class auction(auctionTemplate):
       alert('You must connect your wallet to the site first.')
       return False
     else:
-      tb = TextBox(type='number', text=10, role ="outlined")
+      try:
+        t = "{:.4f}".format(int(self.input_value.toString())/(10**18))
+      except Exception as e:
+        t=None
+        print(e)
+      tb = TextBox(type='number', text=t, role ="outlined")
       cp = ColumnPanel()
       cp.add_component(Label(text="Before you can submit your bid, you must approve at least that many GOFURS to be used by the auction contract. \n\nPro Tip: To prevent having to do an approval step numerous times if you bid more than once or get outbid right before your bid transaction is broadcast, it is recommended to approve a number larger than your bid amount. This is safe to do, but for peace of mind after you are done bidding you can set the approval to zero."))
       cp.add_component(tb)
@@ -161,6 +168,10 @@ class auction(auctionTemplate):
       else:
         try:
           event_args['sender'].enabled = False
+          latest = get_open_form().get_auction_data(self.auction_name)
+          if latest['nextMinimumBid'] > self.input_value:
+            alert("A new bid has come in, please increase your bid.")
+            self.refresh()
           a = anvil.js.await_promise(self.contract_write.bid(self.auction_name,self.input_value))
           a.wait()
           self.bid_input.text = None
@@ -183,5 +194,9 @@ class auction(auctionTemplate):
     self.n +=1
     if refresh:
       self.n=0
+      latest = get_open_form().get_auction_data(self.auction_name)
+      if latest['bidAmount']!=self.auction_data['bidAmount']:
+        Notification("New Bid Detected").show()
+        self.refresh()
         
         
