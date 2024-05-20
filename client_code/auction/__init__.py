@@ -12,7 +12,7 @@ class auction(auctionTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.gofurs_abi = app_tables.contract_data.get(name="GOFURS")['abi']
-    self.auction_name = "test"
+    self.auction_name = "test2"
     self.n = 0
     # Any code you write here will run before the form opens.
 

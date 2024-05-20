@@ -32,7 +32,7 @@ class _home(_homeTemplate):
     print("yea")
   def refresh(self):
     try:
-      self.auction_data = self.get_auction_data("test")
+      self.auction_data = self.get_auction_data("test2")
       self.menu_click(sender=self.latest)
     except:
       self.menu_click(sender=self.link_auction)
@@ -111,10 +111,15 @@ class _home(_homeTemplate):
     for log in logs:
       d = {}
       d['hash']=log['transactionHash']
+      print(dict(log))
+      
+      d['auction_name']=log.args[0]
+      
       d['bidder']=log.args[1]
       d['bid']=int(log.args[2].toString())
       d['timestamp']=int(log.args[3].toString())
       d['datetime']=datetime.datetime.fromtimestamp(d['timestamp'])
+      
       data.append(d)
       tx = get_open_form().provider.getTransaction(d['hash'])
       contractAbi = self.c['abi']
@@ -141,6 +146,7 @@ class _home(_homeTemplate):
           txdata['from']=ev.args[0]
           txdata['to']=ev.args[1]
           txdata['amount']=int(ev.args[2].toString())
+          
           transfers.append(txdata)
       d['gofurs_transfers']=transfers
           
