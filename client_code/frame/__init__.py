@@ -16,6 +16,18 @@ class frame(frameTemplate):
     else:
       self.gofurs_contract = ethers.Contract(get_open_form().gofurs_address, get_open_form().gofurs_abi, get_open_form().wc.provider)
       self.nft_ids = self.get_nft_ids(get_open_form().wc.address)
+      r = 1
+      per_row=3
+      b = 0
+      for n in self.nft_ids:
+        self.grid_panel.add_component(nft_display(data=n, is_clickable=True),
+                  row=str(r), col_xs=b*12/per_row, width_xs=12/per_row)
+        if b<per_row-1:
+          b+=1
+        else:
+          b=0
+          r+=1
+        
       for id in self.nft_ids:
         self.add_component(Label(text=id))
   def event_query(self, event_name, args, from_block = 0, to_block = "latest"):
