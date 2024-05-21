@@ -7,14 +7,8 @@ roles:
   components: [ColumnPanel, LinearPanel, XYPanel, RepeatingPanel]
   display_in_toolbox: true
   title: Outlined Card
-- name: elevated-card
-  components: [ColumnPanel, LinearPanel, XYPanel, RepeatingPanel]
-  display_in_toolbox: false
-  title: Elevated Card
-- name: tonal-card
-  components: [ColumnPanel, LinearPanel, XYPanel, RepeatingPanel]
-  display_in_toolbox: false
-  title: Tonal Card
+- {name: elevated-card, components: null, display_in_toolbox: false, title: Elevated Card}
+- {name: tonal-card, components: null, display_in_toolbox: false, title: Tonal Card}
 - name: outlined-button
   components: [Button, FileLoader]
   display_in_toolbox: true
@@ -23,10 +17,7 @@ roles:
   components: [Button, FileLoader]
   display_in_toolbox: false
   title: Filled Button
-- name: elevated-button
-  components: [Button, FileLoader]
-  display_in_toolbox: false
-  title: Elevated Button
+- {name: elevated-button, components: null, display_in_toolbox: false, title: Elevated Button}
 - name: tonal-button
   components: [Button, FileLoader]
   display_in_toolbox: false

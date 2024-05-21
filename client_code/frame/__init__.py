@@ -3,9 +3,10 @@ from anvil import *
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-
+import json
 import anvil.js
 from anvil.js.window import ethers
+from ..nft_display import nft_display
 class frame(frameTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
@@ -15,11 +16,24 @@ class frame(frameTemplate):
       pass
     else:
       self.gofurs_contract = ethers.Contract(get_open_form().gofurs_address, get_open_form().gofurs_abi, get_open_form().wc.provider)
-      self.nft_ids = self.get_nft_ids(get_open_form().wc.address)
+      address = get_open_form().wc.address
+      self.nft_ids = self.get_nft_ids(address)
+      
+      self.nft_data= []
+      for id in self.nft_ids:
+        _ = {"ID":id, "owner":address}
+        
+        data_uri = self.gofurs_contract.tokenURI(id)
+        
+        json_part = data_uri.split(",", 1)[1]
+        metadata_dict = json.loads(json_part)
+        _["Metadata"]=metadata_dict
+        self.nft_data.append(_)
+      
       r = 1
       per_row=3
       b = 0
-      for n in self.nft_ids:
+      for n in self.nft_data:
         self.grid_panel.add_component(nft_display(data=n, is_clickable=True),
                   row=str(r), col_xs=b*12/per_row, width_xs=12/per_row)
         if b<per_row-1:
@@ -28,8 +42,7 @@ class frame(frameTemplate):
           b=0
           r+=1
         
-      for id in self.nft_ids:
-        self.add_component(Label(text=id))
+      
   def event_query(self, event_name, args, from_block = 0, to_block = "latest"):
     
     event_filter = self.gofurs_contract.filters[event_name](*args)
