@@ -11,13 +11,13 @@ class auction(auctionTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.gofurs_abi = app_tables.contract_data.get(name="GOFURS")['abi']
-    
     self.n = 0
     # Any code you write here will run before the form opens.
 
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
+    self.label_only.text = "This auction is only available on {}".format(get_open_form().auction_chain)
+    
     self.address = get_open_form().wc.address
     if self.address is None:
       self.user_data = {"Balance":0, "Approved":0}
@@ -26,6 +26,7 @@ class auction(auctionTemplate):
       self.user_data = get_open_form().get_user_data(self.address)
       self.contract_write = get_open_form().get_contract(False)
       self.column_panel_6.visible = get_open_form().wc.chainId!=get_open_form().network
+      
     self.refresh()
   def refresh(self):
     self.auction_name = get_open_form().auction_name
@@ -71,8 +72,7 @@ class auction(auctionTemplate):
       event_args['sender'].role = "outlined"
       is_valid=True
     except Exception as ee:
-      print(dir(ee))
-      print(ee.original_error.message)
+      pass
       
       e.add_component(Label(text="Invalid number entry. ", font_size=10, foreground='red', role='body'))
     val = int(self.input_value.toString())
@@ -108,7 +108,7 @@ class auction(auctionTemplate):
     self.is_good = all([is_approved, is_balance, is_valid, is_enough, is_pls])
     if not is_approved:
       self.button_set_approval_click(sender=self.button_set_approval)
-    print(self.is_good, 'isgood')
+    
     
 
   def button_set_approval_click(self, **event_args):
@@ -121,7 +121,7 @@ class auction(auctionTemplate):
         t = "{:.18f}".format(int(self.input_value.toString())/(10**18))
       except Exception as e:
         t=None
-        print(e)
+        
       tb = TextBox(type='number', text=t, role ="outlined")
       cp = ColumnPanel()
       cp.add_component(Label(text="Before you can submit your bid, you must approve at least that many GOFURS to be used by the auction contract. \n\nPro Tip: To prevent having to do an approval step numerous times if you bid more than once or get outbid right before your bid transaction is broadcast, it is recommended to approve a number larger than your bid amount. This is safe to do, but for peace of mind after you are done bidding you can set the approval to zero."))
@@ -129,7 +129,7 @@ class auction(auctionTemplate):
       _ = alert(cp, title="Approve Contract to Interact with GOFURS", buttons=[("Submit", True), ("Cancel", False)], large=True)
       if _:
         gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
-        ercabi = self.gofurs_abi
+        ercabi = get_open_form().gofurs_abi
        
         self.gofurs_contract_write=  ethers.Contract(gofurs_address, ercabi, get_open_form().wc.signer)
         try:
@@ -137,7 +137,7 @@ class auction(auctionTemplate):
           
           a.wait()
         except Exception as e:
-          print(dir(e.original_error))
+          
           alert(e.original_error.reason)
         self.form_show()
 
@@ -157,14 +157,13 @@ class auction(auctionTemplate):
           a.wait()
           
         except Exception as e:
-          alert(e)
+          alert(e.original_error.reason)
           event_args['sender'].enabled=True
       
         self.form_show()
     else:
       
       self.bid_input_change(sender=self.bid_input)
-      print(self.is_good)
       if not self.is_good:
         return False
       if self.contract_write is None:

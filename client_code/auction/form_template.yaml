@@ -3,12 +3,12 @@ container:
   event_bindings: {show: form_show}
 components:
 - name: column_panel_6
-  properties: {background: blue}
+  properties: {background: 'theme:Error', visible: false}
   type: ColumnPanel
   layout_properties: {grid_position: 'MINMLY,MSYAZQ', full_width_row: true}
   components:
-  - name: label_2
-    properties: {align: center, text: This auction is only available on PulseChain,
+  - name: label_only
+    properties: {align: center, text: This auction is only available on G Chain Testnet,
       bold: true, foreground: white}
     type: Label
     layout_properties: {grid_position: 'PZUGFJ,YCAQZU'}

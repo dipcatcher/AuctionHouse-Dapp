@@ -30,11 +30,11 @@ components:
     type: Link
     layout_properties: {grid_position: 'NVCXRX,AFLMMI'}
     event_bindings: {click: menu_click}
-  - name: link_1_copy
+  - name: link_about
     properties: {text: About, font: Inter, icon: '', align: left}
     type: Link
     layout_properties: {grid_position: 'UWABUF,BSGAKM'}
-    event_bindings: {click: link_1_copy_click}
+    event_bindings: {click: menu_click}
 - name: content_panel
   properties: {}
   type: ColumnPanel

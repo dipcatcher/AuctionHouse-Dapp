@@ -6,6 +6,7 @@ from anvil.tables import app_tables
 import anvil.server
 from ..auction import auction
 from ..frame import frame
+from ..About import About
 from anvil.js.window import ethers
 import datetime
 from datetime import timedelta, timezone
@@ -15,6 +16,7 @@ class _home(_homeTemplate):
     self.init_components(**properties)
     self.auction_name = "auction"
     self.network = 8008135
+    self.auction_chain = "G Chain Testnet"
     
     
     self.c =  app_tables.contract_data.get(name='series')
@@ -28,10 +30,9 @@ class _home(_homeTemplate):
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     self.latest = self.link_auction
     self.elogs = []
-    self.setup_event_listener()
-    print("ok")
+   
     self.refresh()
-    print("yea")
+   
   def refresh(self):
     try:
       self.auction_data = self.get_auction_data(self.auction_name)
@@ -47,6 +48,8 @@ class _home(_homeTemplate):
       self.page = auction()
     if self.target == self.link_frame:
       self.page = frame()
+    if self.target == self.link_about:
+      self.page = About()
     self.content_panel.add_component(self.page)
     self.latest = self.target
   
@@ -113,7 +116,6 @@ class _home(_homeTemplate):
     for log in logs:
       d = {}
       d['hash']=log['transactionHash']
-      print(dict(log))
       
       d['auction_name']=log.args[0]
       
@@ -129,7 +131,7 @@ class _home(_homeTemplate):
       parsedTx = iface.parseTransaction({"data": tx.data})
       giface = ethers.utils.Interface(self.gofurs_abi)
       txReceipt = self.provider.getTransactionReceipt(d['hash'])
-      #print(txReceipt)
+      
       events = txReceipt.logs
       transfers = []
       for e in events:
@@ -197,18 +199,7 @@ class _home(_homeTemplate):
         readable_time = f"{days}d {hours}h {minutes}m {seconds}s" if days > 0 else f"{hours}h {minutes}m {seconds}s"
 
     return remaining_seconds, readable_time
-  def setup_event_listener(self):
-    # Call ethers.js to set up event listener
- 
-    #self.contract.on("Bid", self.handle_event, self.latest_block+1)
-    pass
-    
-
-  def handle_event(self, *eventData):
-    # Handle the event data here
-    self.elogs.append(eventData)
-    Notification("Refreshing Bid Record...", title="New Bid Detected", style='success').show()
-    
+  
     # You can update UI or trigger other actions based on the event data
   def wc_connect(self, **event_args):
     self.refresh()

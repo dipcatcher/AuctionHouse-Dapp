@@ -82,8 +82,8 @@ components:
       type: Label
       layout_properties: {grid_position: 'AKNKCS,MRBNYH'}
     - name: label_2_copy_copy_copy
-      properties: {text: 'The inaugural auction will be for Saturday Morning, a music
-          video NFT.', role: body, spacing_below: large}
+      properties: {text: 'The inaugural auction will be for ********, a music video
+          NFT.', role: body, spacing_below: large}
       type: Label
       layout_properties: {grid_position: 'AWXWLN,DOAQWH'}
     - name: label_1_copy_copy_copy_copy
