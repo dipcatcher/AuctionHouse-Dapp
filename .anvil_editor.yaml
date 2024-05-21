@@ -11,7 +11,8 @@ unique_ids:
     frame: '1715227546965762499935464.2914'
     auction.ItemTemplate1: '1715050826726917009190565.3839'
   modules: {}
-  server_modules: {}
+  server_modules:
+    ServerModule1: '1716326528910513736893715.3399'
   assets:
     goof.png: '1715953305712455093165360.4857'
     d.jpg: '1713552850781951873356490.0521'

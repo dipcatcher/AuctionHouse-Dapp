@@ -9,6 +9,7 @@ from ..frame import frame
 from ..about import about as About
 from anvil.js.window import ethers
 import datetime
+import time
 from datetime import timedelta, timezone
 class _home(_homeTemplate):
   def __init__(self, **properties):
@@ -207,7 +208,12 @@ class _home(_homeTemplate):
   def wc_connect(self, **event_args):
     self.refresh()
   def nft_map(self):
-    self.frames_contract = self.get_contract("frames")
+    task = anvil.server.call('run_nft_map')
+    while task.is_running():
+      time.sleep(30)
+      if "DONE" in task.get_state():
+        print("DOINE")
+    '''self.frames_contract = self.get_contract("frames")
     max_id = int(self.frames_contract.ID_DEADLINE().toString())
     m = []
     for n in range(max_id):
@@ -216,6 +222,6 @@ class _home(_homeTemplate):
         m.append(a)
         print(len(m))
       except:
-        pass
+        pass'''
 
       
