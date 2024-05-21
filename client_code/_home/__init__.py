@@ -209,11 +209,13 @@ class _home(_homeTemplate):
   def nft_map(self):
     self.frames_contract = self.get_contract("frames")
     max_id = int(self.frames_contract.ID_DEADLINE().toString())
-    map = 
+    m = []
     for n in range(max_id):
       try:
-        print(self.gofurs_contract.ownerOf(n))
-      except Exception as e:
-        print(e.original_error.message)
+        a = self.gofurs_contract.ownerOf(n)
+        m.append(a)
+        print(len(m))
+      except:
+        pass
 
       
