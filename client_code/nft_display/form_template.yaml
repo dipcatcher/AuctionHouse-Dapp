@@ -4,7 +4,7 @@ container:
   properties: {role: null}
 components:
 - name: column_panel_1
-  properties: {role: outlined-card}
+  properties: {role: null}
   type: ColumnPanel
   layout_properties: {grid_position: ''}
   components:
@@ -13,16 +13,13 @@ components:
     type: Image
     layout_properties: {grid_position: 'PEADCX,PTDPNF'}
     event_bindings: {mouse_up: image_mouse_up}
-- name: label_owner
-  properties: {}
-  type: Label
-  layout_properties: {grid_position: ''}
 - name: label_name
-  properties: {}
+  properties: {bold: true}
   type: Label
   layout_properties: {grid_position: ''}
-- name: label_attributes_name
-  properties: {}
-  type: Label
-  layout_properties: {grid_position: 'EWKZPS,GWHXWP'}
+- name: button_claim
+  properties: {text: Claim NFT, role: outlined-button, align: left}
+  type: Button
+  layout_properties: {grid_position: 'VUEKJU,KRXWXO'}
+  event_bindings: {click: button_claim_click}
 is_package: true

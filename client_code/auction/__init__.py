@@ -24,7 +24,7 @@ class auction(auctionTemplate):
       self.contract_write = None
     else:
       self.user_data = get_open_form().get_user_data(self.address)
-      self.contract_write = get_open_form().get_contract(False)
+      self.contract_write = get_open_form().get_contract('series', False)
       self.column_panel_6.visible = get_open_form().wc.chainId!=get_open_form().network
       
     self.refresh()

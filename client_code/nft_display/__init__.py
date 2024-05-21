@@ -4,6 +4,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 
+import anvil.js
 
 class nft_display(nft_displayTemplate):
   def __init__(self, **properties):
@@ -13,12 +14,13 @@ class nft_display(nft_displayTemplate):
     self.is_clickable = properties['is_clickable']
     self.role = ['elevated-card']
   def refresh(self):
-    self.image.source=self.data['Metadata']['image']
-    self.label_attributes_name.text = self.data['Metadata']['attributes'][0]['value']
-    self.label_name.text = self.data['Metadata']['name']
-    self.label_owner.text = "{}...{}".format( self.data['owner'][0:4], self.data['owner'][-4:])
+    self.image.source="_/theme/placeholdernft.png"#self.data['Metadata']['image']
+    self.label_name.text = "Frame NFT ID #{}".format(self.data['ID'])
+    self.contract_read = get_open_form().get_contract('frames')
+    self.did_claim = self.contract_read.DID_CLAIM(self.data['ID'])
+   
+    self.button_claim.text = "Claim NFT" if  not self.did_claim else "✅ Claimed"
     
-    # Any code you write here will run before the form opens.
 
   def image_mouse_up(self, x, y, button, **event_args):
     """This method is called when a mouse button is released on this component"""
@@ -32,3 +34,17 @@ class nft_display(nft_displayTemplate):
     self.refresh()
 
     # Any code you write here will run before the form opens.
+
+  def button_claim_click(self, **event_args):
+    if  "Claimed" in self.button_claim.text :
+      return False
+    else:
+      self.contract_write = get_open_form().get_contract('frames', False)
+      try:
+        a = anvil.js.await_promise(self.contract_write.claim(self.data['ID']))
+        a.wait()
+      except Exception as e:
+        alert(e.original_error.reason)
+      self.refresh()
+    
+    

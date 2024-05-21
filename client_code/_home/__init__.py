@@ -6,7 +6,7 @@ from anvil.tables import app_tables
 import anvil.server
 from ..auction import auction
 from ..frame import frame
-from ..About import About
+from ..about import about as About
 from anvil.js.window import ethers
 import datetime
 from datetime import timedelta, timezone
@@ -23,7 +23,7 @@ class _home(_homeTemplate):
     url = app_tables.wallet_chains.get(chainId=self.network)['rpcUrl']
     self.provider = ethers.providers.JsonRpcProvider(url)
     self.latest_block = anvil.js.await_promise(self.provider.getBlockNumber())
-    self.contract = self.get_contract()
+    self.contract = self.get_contract('series')
     gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
     gc = app_tables.contract_data.get(name="GOFURS")
     self.gofurs_address = gc['address']
@@ -32,10 +32,11 @@ class _home(_homeTemplate):
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     self.latest = self.link_auction
     self.elogs = []
-   
+    self.nft_map()
     self.refresh()
    
   def refresh(self):
+    
     try:
       self.auction_data = self.get_auction_data(self.auction_name)
       self.menu_click(sender=self.latest)
@@ -55,8 +56,8 @@ class _home(_homeTemplate):
     self.content_panel.add_component(self.page)
     self.latest = self.target
   
-  def get_contract(self, is_read=True):
-    c = self.c
+  def get_contract(self, name, is_read=True):
+    c = app_tables.contract_data.get(name=name)
     address = c['address']
     abi = c['abi']
     if is_read:
@@ -205,5 +206,14 @@ class _home(_homeTemplate):
     # You can update UI or trigger other actions based on the event data
   def wc_connect(self, **event_args):
     self.refresh()
+  def nft_map(self):
+    self.frames_contract = self.get_contract("frames")
+    max_id = int(self.frames_contract.ID_DEADLINE().toString())
+    map = 
+    for n in range(max_id):
+      try:
+        print(self.gofurs_contract.ownerOf(n))
+      except Exception as e:
+        print(e.original_error.message)
 
       
