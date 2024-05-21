@@ -12,7 +12,7 @@ class auction(auctionTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.gofurs_abi = app_tables.contract_data.get(name="GOFURS")['abi']
-    self.auction_name = "test2"
+    
     self.n = 0
     # Any code you write here will run before the form opens.
 
@@ -25,8 +25,10 @@ class auction(auctionTemplate):
     else:
       self.user_data = get_open_form().get_user_data(self.address)
       self.contract_write = get_open_form().get_contract(False)
+      self.column_panel_6.visible = get_open_form().wc.chainId!=get_open_form().network
     self.refresh()
   def refresh(self):
+    self.auction_name = get_open_form().auction_name
     self.button_place_bid.enabled=True
     self.label_bid_history.text = "Loading Bid History..."
     self.label_bid_history.icon="_/theme/33Ho.gif"
@@ -37,7 +39,7 @@ class auction(auctionTemplate):
     self.label_balance.text = "{:.3f} GOFURS".format( self.user_data['Balance']/(10**18))
     self.label_allowance.text = "{:.3f} GOFURS".format( self.user_data['Approved']/(10**18))
     self.label_latest_bid.text = "{:.3f} GOFURS".format( self.auction_data['bidAmount']/(10**18))
-    self.label_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
+    self.link_minimum_bid.text = "{:.3f} GOFURS".format( self.auction_data['nextMinimumBid']/(10**18))
     self.link_owner.text = "{}...{}".format(self.auction_data['latestBidder'][0:4], self.auction_data['latestBidder'][-4:]) if self.auction_data['auctionEnded'] else "Pending Auction Results"
     self.column_panel_error.clear()
     
@@ -74,12 +76,12 @@ class auction(auctionTemplate):
       
       e.add_component(Label(text="Invalid number entry. ", font_size=10, foreground='red', role='body'))
     val = int(self.input_value.toString())
-    if  val > self.user_data['Approved']:
+    if  (val > self.user_data['Approved']) and 'link_click' not in event_args:
       self.button_set_approval.role = 'outlined-button'
       is_approved = False
       t="You must approve the contract to interact with your GOFURS. "
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
-      self.button_set_approval_click(sender=self.button_set_approval)
+      
     else:
       self.button_set_approval.role = None
       is_approved=True
@@ -96,7 +98,7 @@ class auction(auctionTemplate):
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       is_enough=True
-    if get_open_form().wc.chainId not in [8008135, 369]:
+    if get_open_form().wc.chainId not in [get_open_form().network]:
       t = "You must be connected to G Chain Testnet."
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
@@ -104,6 +106,8 @@ class auction(auctionTemplate):
     self.column_panel_error.clear()
     self.column_panel_error.add_component(e)
     self.is_good = all([is_approved, is_balance, is_valid, is_enough, is_pls])
+    if not is_approved:
+      self.button_set_approval_click(sender=self.button_set_approval)
     print(self.is_good, 'isgood')
     
 
@@ -114,7 +118,7 @@ class auction(auctionTemplate):
       return False
     else:
       try:
-        t = "{:.4f}".format(int(self.input_value.toString())/(10**18))
+        t = "{:.18f}".format(int(self.input_value.toString())/(10**18))
       except Exception as e:
         t=None
         print(e)
@@ -122,7 +126,7 @@ class auction(auctionTemplate):
       cp = ColumnPanel()
       cp.add_component(Label(text="Before you can submit your bid, you must approve at least that many GOFURS to be used by the auction contract. \n\nPro Tip: To prevent having to do an approval step numerous times if you bid more than once or get outbid right before your bid transaction is broadcast, it is recommended to approve a number larger than your bid amount. This is safe to do, but for peace of mind after you are done bidding you can set the approval to zero."))
       cp.add_component(tb)
-      _ = alert(cp, title="Approve Contract to Interact with GOFURS", buttons=[("Submit", True), ("Cancel", False)])
+      _ = alert(cp, title="Approve Contract to Interact with GOFURS", buttons=[("Submit", True), ("Cancel", False)], large=True)
       if _:
         gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
         ercabi = self.gofurs_abi
@@ -130,10 +134,11 @@ class auction(auctionTemplate):
         self.gofurs_contract_write=  ethers.Contract(gofurs_address, ercabi, get_open_form().wc.signer)
         try:
           a = anvil.js.await_promise(self.gofurs_contract_write.approve(get_open_form().c['address'], ethers.utils.parseUnits(str(tb.text), 18)))
-          print(dir(a))
+          
           a.wait()
         except Exception as e:
-          alert(e)
+          print(dir(e.original_error))
+          alert(e.original_error.reason)
         self.form_show()
 
   def info_icon_click(self, **event_args):
@@ -168,10 +173,10 @@ class auction(auctionTemplate):
       else:
         try:
           event_args['sender'].enabled = False
-          latest = get_open_form().get_auction_data(self.auction_name)
-          if latest['nextMinimumBid'] > self.input_value:
-            alert("A new bid has come in, please increase your bid.")
-            self.refresh()
+          #latest = get_open_form().get_auction_data(self.auction_name)
+          #if latest['nextMinimumBid'] > self.input_value:
+            #alert("A new bid has come in, please increase your bid.")
+            #self.refresh()
           a = anvil.js.await_promise(self.contract_write.bid(self.auction_name,self.input_value))
           a.wait()
           self.bid_input.text = None
@@ -198,5 +203,9 @@ class auction(auctionTemplate):
       if latest['bidAmount']!=self.auction_data['bidAmount']:
         Notification("New Bid Detected").show()
         self.refresh()
-        
+
+  def link_minimum_bid_click(self, **event_args):
+    """This method is called when the link is clicked"""
+    self.bid_input.text = self.auction_data['nextMinimumBid']/(10**18)
+    self.bid_input_change(sender=self.bid_input, link_click=True)
         

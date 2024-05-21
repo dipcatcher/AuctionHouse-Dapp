@@ -13,10 +13,12 @@ class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    self.auction_name = "auction"
+    self.network = 8008135
     
     
     self.c =  app_tables.contract_data.get(name='series')
-    url = app_tables.wallet_chains.get(chainId=8008135)['rpcUrl']
+    url = app_tables.wallet_chains.get(chainId=self.network)['rpcUrl']
     self.provider = ethers.providers.JsonRpcProvider(url)
     self.latest_block = anvil.js.await_promise(self.provider.getBlockNumber())
     self.contract = self.get_contract()
@@ -32,7 +34,7 @@ class _home(_homeTemplate):
     print("yea")
   def refresh(self):
     try:
-      self.auction_data = self.get_auction_data("test2")
+      self.auction_data = self.get_auction_data(self.auction_name)
       self.menu_click(sender=self.latest)
     except:
       self.menu_click(sender=self.link_auction)
@@ -119,7 +121,7 @@ class _home(_homeTemplate):
       d['bid']=int(log.args[2].toString())
       d['timestamp']=int(log.args[3].toString())
       d['datetime']=datetime.datetime.fromtimestamp(d['timestamp'])
-      
+
       data.append(d)
       tx = get_open_form().provider.getTransaction(d['hash'])
       contractAbi = self.c['abi']
