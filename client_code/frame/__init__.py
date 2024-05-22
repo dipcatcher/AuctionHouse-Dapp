@@ -13,9 +13,12 @@ class frame(frameTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
   def refresh(self):
-    if get_open_form().wc.signer is None:
-      pass
+    if get_open_form().wc.address is None:
+      alert('Connect your wallet!')
     else:
+      
+      if get_open_form().wc.chainId not in [8008135]:
+        alert("This is only on G Chain Testnet")
       self.gofurs_contract = ethers.Contract(get_open_form().gofurs_address, get_open_form().gofurs_abi, get_open_form().wc.provider)
       address = get_open_form().wc.address
       self.nft_ids = self.get_nft_ids(address)
