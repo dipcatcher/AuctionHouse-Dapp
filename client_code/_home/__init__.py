@@ -33,7 +33,7 @@ class _home(_homeTemplate):
     self.gofurs_contract=  ethers.Contract(gofurs_address, ercabi, self.provider)
     self.latest = self.link_auction
     self.elogs = []
-    self.nft_map()
+    #self.nft_map()
     self.refresh()
    
   def refresh(self):
