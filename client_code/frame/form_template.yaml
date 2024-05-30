@@ -3,6 +3,17 @@ container:
   event_bindings: {show: form_show}
   properties: {role: tonal-card}
 components:
+- name: label_1
+  properties: {role: headline, text: Music Video Frame NFTs}
+  type: Label
+  layout_properties: {grid_position: 'HLXPPR,ZKIHYH'}
+- name: label_2
+  properties: {text: 'GOFURS Holders get a free NFT of a unique frame from the music
+      video for each full unit they own at the time of the auction launch. Connect
+      to each chain you hold GOFURS to check for eligibility - PulseChain, Ethereum,
+      and Degenchain.'}
+  type: Label
+  layout_properties: {grid_position: 'IHHKLQ,QAWEAH'}
 - name: column_panel_1
   properties: {role: tonal-card}
   type: ColumnPanel

@@ -7,15 +7,36 @@ import anvil.js
 from anvil.js.window import ethers
 import anvil.server
 from ..gainful_auction import gainful_auction
+import anvil.js
+Swal = anvil.js.window.sweetAlert
 class auction(auctionTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.n = 0
+    
     # Any code you write here will run before the form opens.
 
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
+    if get_open_form().is_first:
+      a = anvil.js.await_promise(Swal.fire({
+      "title": 'Welcome to Auction House!',
+      "text": 'Before bidding in the auction, make sure to check your eligibility for the NFT Airdrop. Bidding before claiming could cause you to lose eligibility to claim.',
+      "icon": 'info',
+      "confirmButtonText": "Check Eligibility",
+      "showCancelButton":True,
+      "cancelButtonText": "View Auction",
+      "iconHtml":'''<img src="_/theme/Frame%20NFT%20Icon.png" alt="Frame NFT Icon" width="80" height="80">''',
+      "customClass": {
+          "icon": 'no-border'
+        }
+            }))
+      if a.isConfirmed:
+        get_open_form().menu_click(sender=get_open_form().link_frame)
+      elif a.isDismissed:
+        print("dismissed")
+      get_open_form().is_first=False
     self.label_only.text = "This auction is only available on {}".format(get_open_form().auction_chain)
     
     self.address = get_open_form().wc.address

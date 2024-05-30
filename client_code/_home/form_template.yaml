@@ -26,7 +26,7 @@ components:
     layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
     event_bindings: {click: menu_click}
   - name: link_frame
-    properties: {text: Frame NFT, font: Inter, icon: '', align: left}
+    properties: {text: NFT Airdrop, font: Inter, icon: '', align: left}
     type: Link
     layout_properties: {grid_position: 'NVCXRX,AFLMMI'}
     event_bindings: {click: menu_click}
