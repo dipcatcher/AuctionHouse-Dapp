@@ -1,5 +1,7 @@
 .no-border {
   border: 0;
+  width:0;
+  height:0;
 }
 .anvil-rich-text {
 

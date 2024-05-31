@@ -27,7 +27,11 @@ class auction(auctionTemplate):
       "confirmButtonText": "Check Eligibility",
       "showCancelButton":True,
       "cancelButtonText": "View Auction",
-      "iconHtml":'''<img src="_/theme/Frame%20NFT%20Icon.png" alt="Frame NFT Icon" width="80" height="80">''',
+      "imageUrl": "_/theme/Frame%20NFT%20Icon.png",
+      "imageWidth": 200,
+      "imageHeight": 200,
+      "imageAlt": "Custom image",
+      "iconHtml":'''<img src="" alt="Frame NFT Icon" width="0" height="0">''',
       "customClass": {
           "icon": 'no-border'
         }
