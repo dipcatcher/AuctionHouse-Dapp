@@ -11,7 +11,7 @@ from anvil.js.window import ethers
 import datetime
 import time
 from datetime import timedelta, timezone
-
+from ..calc import calc
 
 class _home(_homeTemplate):
   def __init__(self, **properties):
@@ -226,5 +226,18 @@ class _home(_homeTemplate):
         print(len(m))
       except:
         pass'''
+  def get_chain_contract(self, chain, name):
+    url = app_tables.wallet_chains.get(name=chain)['rpcUrl']
+    provider = ethers.providers.JsonRpcProvider(url)
+    c = app_tables.contract_data.get(name=name)
+    contract = ethers.Contract(c['address'], c['abi'], provider)
+    return contract
+  def outlined_button_1_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    self.content_panel.clear()
+    for chain in ['Ethereum', "PulseChain", "Degen Chain"]:
+      contract = self.get_chain_contract(chain, 'GOFURS')
+      self.content_panel.add_component(calc(contract = contract, name=chain))
+    
 
       
