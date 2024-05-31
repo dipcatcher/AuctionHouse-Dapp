@@ -26,6 +26,6 @@ components:
     type: Link
     layout_properties: {grid_position: 'YPYDSU,OMKNIQ'}
   - name: label_transactions
-    properties: {}
+    properties: {font_size: 10}
     type: Label
     layout_properties: {grid_position: 'HOKHTL,XTZSGD'}
