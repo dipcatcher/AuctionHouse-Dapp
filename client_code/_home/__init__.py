@@ -38,7 +38,7 @@ class _home(_homeTemplate):
     self.elogs = []
     #self.nft_map()
     self.refresh()
-   
+    
   def refresh(self):
     
     try:
