@@ -20,7 +20,7 @@ class _home(_homeTemplate):
     self.is_first = True
     self.auction_name = "auction"
     self.network = 8008135
-    self.auction_chain = "G Chain Testnet"
+    self.auction_chain = "PulseChain"
     
     
     self.c =  app_tables.contract_data.get(name='series')
