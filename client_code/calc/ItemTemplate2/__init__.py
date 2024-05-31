@@ -14,9 +14,22 @@ class ItemTemplate2(ItemTemplate2Template):
     self.end = self.item['end']
     self.contract = self.item['contract']
     self.outlined_button_1.text  = (self.start, self.end)
-
+    if app_tables.exclude.get(chain=self.item['chain'], cohort=self.start) is None:
+      pass
+    else:
+      self.outlined_button_1.enabled=False
+    
     # Any code you write here will run before the form opens.
 
   def outlined_button_1_click(self, **event_args):
-    """This method is called when the button is clicked"""
-    pass
+    event_args['sender'].enabled=False
+    m=[]
+    for n in range(self.start, self.end):
+      try:
+        a = self.contract.ownerOf(n)
+        m.append(n)
+        event_args['sender'].text = "{} | {}-{} {}".format(n, self.start, self.end, len(m))
+      except Exception as e:
+        print(e)
+    app_tables.exclude.add_row(cohort=self.start, exclude=m,chain=self.item['chain'])
+    event_args['sender'].icon='fa:check'

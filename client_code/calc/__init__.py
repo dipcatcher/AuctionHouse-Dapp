@@ -26,7 +26,7 @@ class calc(calcTemplate):
         end = self.id_deadline
         is_last = True
       
-      groups.append({"start":start, "end":end, "contract":self.contract})
+      groups.append({"start":start, "end":end, "contract":self.contract, "chain":self.label_1.text})
       n = end
       start = end
       do_run = not is_last
