@@ -13,6 +13,11 @@ class calc(calcTemplate):
     self.contract = properties['contract']
     self.id_deadline = int(self.contract.minted().toString())
     self.label_1.text = properties['name']
+    a=  app_tables.exclude.search(chain=properties['name'])
+    ids = []
+    for _ in a:
+      ids+=_['exclude']
+    print(sorted(ids))
     last = 0
     n = 0
     s = 500

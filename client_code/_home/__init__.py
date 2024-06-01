@@ -12,16 +12,25 @@ import datetime
 import time
 from datetime import timedelta, timezone
 from ..calc import calc
-
+import random
 class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.is_first = True
     self.auction_name = "auction"
-    self.network = 8008135
+    self.network = 369
     self.auction_chain = "PulseChain"
-    
+    frames = app_tables.frames.search()
+    random_ints = list(range(1, len(frames)))
+    random.shuffle(random_ints)
+    print(random_ints)
+    n=0
+    eth_nfts = []
+    for f in frames:
+      #a =random_ints[n]
+      #f.update(id=a)
+      
     
     self.c =  app_tables.contract_data.get(name='series')
     url = app_tables.wallet_chains.get(chainId=self.network)['rpcUrl']
