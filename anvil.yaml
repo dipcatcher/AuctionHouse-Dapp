@@ -7,7 +7,7 @@ services:
 - source: /runtime/services/tables.yml
   client_config: {}
   server_config: {}
-startup: {type: form, module: comingsoon}
+startup: {type: form, module: _home}
 package_name: Auction_House_by_GOFURS
 allow_embedding: false
 name: Auction House by GOFURS
