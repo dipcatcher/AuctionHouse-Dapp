@@ -13,7 +13,7 @@ components:
   type: Label
   layout_properties: {column: RDIBOO}
 - name: label_address
-  properties: {role: body, spacing_above: medium}
+  properties: {role: body, spacing_above: medium, text: ''}
   type: Label
   layout_properties: {column: VJQQOR}
 - name: column_panel_1

@@ -23,6 +23,8 @@ class frame(frameTemplate):
       self.nft_ids = self.get_nft_ids(address)
       
       self.nft_data= []
+      if len(self.nft_ids) == 0:
+        self.column_panel_eligible.visible=True
       for id in self.nft_ids:
         _ = {"ID":id, "owner":address}
         
@@ -71,3 +73,7 @@ class frame(frameTemplate):
     """This method is called when the form is shown on the page"""
     
     self.refresh()
+
+  def outlined_button_1_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    get_open_form().wc.link_1_click(sender=get_open_form().wc.link_1)

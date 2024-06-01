@@ -15,15 +15,15 @@ class nft_display(nft_displayTemplate):
     self.is_clickable = properties['is_clickable']
     self.role = ['elevated-card']
   def refresh(self):
-    if self.item['chain']=='Ethereum':
+    if get_open_form().wc.chainId==1:
       row = app_tables.frames.get(eth_id=self.data['ID'])
       
       #selection.update(eth_id=n)
-    if self.item['chain']=='PulseChain':
+    if get_open_form().wc.chainId==369:
       row = app_tables.frames.get(pls_id=self.data['ID'])
       
       #selection.update(pls_id=n)
-    if self.item['chain']=='Degen Chain':
+    if get_open_form().wc.chainId==666666666:
       row = app_tables.frames.get(degen_id=self.data['ID'])
     
     self.image.source=row['file']#"_/theme/Frame%20NFT%20Placeholder.png"#self.data['Metadata']['image']

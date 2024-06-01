@@ -21,13 +21,13 @@ components:
   - name: label_2_copy
     properties: {text: 'Each auction begins with a minimum starting bid. Every new
         bid must be larger than the prior bid by the Minimum Bid Increment. In this
-        auction, it is 30%.
+        auction, it is 20%.
 
 
-        When a new bid is placed, the prior bidder receives their bid amount back
-        and the difference between the new bid and the prior bid is distributed between
-        the auctioneer and the prior bidder per the Bid Difference Split of that auction.
-        In this auction, the auctioneer is burning its half of the split.
+        When a new bid is placed, the prior bidder receives their bid amount back.
+        Then, the difference between the new bid and the prior bid is split in half
+        between the auctioneer and the prior bidder. In this auction, the auctioneer
+        is burning its half of the split.
 
 
         If you participate in the auction, you will either win the prize or earn from
@@ -36,6 +36,10 @@ components:
         ', role: body, spacing_below: large}
     type: Label
     layout_properties: {grid_position: 'DTFKFN,QCWQSP'}
+  - name: infovideo_1
+    properties: {}
+    type: form:infovideo
+    layout_properties: {grid_position: 'BQIHMJ,EOXXRT'}
   - name: label_1_copy_copy
     properties: {text: 'Want to utilize this auction system?', bold: true, font_size: 16,
       role: body}
