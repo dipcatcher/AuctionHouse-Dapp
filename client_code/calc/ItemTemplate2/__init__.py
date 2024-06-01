@@ -14,15 +14,18 @@ class ItemTemplate2(ItemTemplate2Template):
     self.end = self.item['end']
     self.contract = self.item['contract']
     self.outlined_button_1.text  = (self.start, self.end)
-    if app_tables.exclude.get(chain=self.item['chain'], cohort=self.start) is None:
+    self.candidates = app_tables.exclude.get(chain=self.item['chain'], cohort=self.start)
+    if self.candidates is None:
       pass
     else:
+      self.possible = self.candidates['exclude']
       self.outlined_button_1.enabled=False
     
     # Any code you write here will run before the form opens.
 
   def outlined_button_1_click(self, **event_args):
     event_args['sender'].enabled=False
+    
     m=[]
     for n in range(self.start, self.end):
       try:
