@@ -22,7 +22,7 @@ class auction(auctionTemplate):
     if get_open_form().is_first:
       a = anvil.js.await_promise(Swal.fire({
       "title": 'Welcome to Auction House!',
-      "text": 'Before bidding in the auction, make sure to check your eligibility for the NFT Airdrop. Bidding before claiming could cause you to lose eligibility to claim.',
+      "text": 'Before bidding in the auction, make sure to check your eligibility for the NFT Airdrop. You are eligible if you held at least one full GOFURS as of the launch of the auction. Bidding before claiming on PulseChain could cause you to lose eligibility to claim.',
       "icon": 'info',
       "confirmButtonText": "Check Eligibility",
       "showCancelButton":True,
@@ -124,7 +124,7 @@ class auction(auctionTemplate):
     else:
       is_enough=True
     if get_open_form().wc.chainId not in [get_open_form().network]:
-      t = "You must be connected to G Chain Testnet."
+      t = "You must be connected to PulseChain."
       e.add_component(Label(text=t, font_size=10, foreground='red', role='body'))
     else:
       is_pls = True

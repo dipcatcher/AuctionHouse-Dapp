@@ -11,7 +11,7 @@ components:
   - name: wc
     properties:
       project_id: 03f4fc86117e7b57a2db790fd98541a4
-      chain_ids: ['8008135', '1', '666666666', '369']
+      chain_ids: ['369', '1', '666666666']
     type: form:dep_3mhfdrg7acs:WalletConnect
     layout_properties: {}
     event_bindings: {connect: wc_connect}
@@ -35,11 +35,6 @@ components:
     type: Link
     layout_properties: {grid_position: 'UWABUF,BSGAKM'}
     event_bindings: {click: menu_click}
-  - name: outlined_button_1
-    properties: {text: outlined_button_1, role: outlined-button}
-    type: Button
-    layout_properties: {grid_position: 'ETHZVE,KWENSO'}
-    event_bindings: {click: outlined_button_1_click}
 - name: content_panel
   properties: {}
   type: ColumnPanel

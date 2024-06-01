@@ -11,7 +11,7 @@ from anvil.js.window import ethers
 import datetime
 import time
 from datetime import timedelta, timezone
-from ..calc import calc
+
 import random
 class _home(_homeTemplate):
   def __init__(self, **properties):
@@ -21,15 +21,11 @@ class _home(_homeTemplate):
     self.auction_name = "auction"
     self.network = 369
     self.auction_chain = "PulseChain"
-    frames = app_tables.frames.search()
-    random_ints = list(range(1, len(frames)))
-    random.shuffle(random_ints)
-    print(random_ints)
-    n=0
-    eth_nfts = []
-    for f in frames:
-      #a =random_ints[n]
-      #f.update(id=a)
+    #self.shuffle("Ethereum")
+    #self.shuffle("PulseChain")
+    #self.shuffle("Degen Chain")
+    
+    
       
     
     self.c =  app_tables.contract_data.get(name='series')
@@ -47,7 +43,25 @@ class _home(_homeTemplate):
     self.elogs = []
     #self.nft_map()
     self.refresh()
-    
+  def shuffle(self, chain):
+    a = app_tables.exclude.search(chain=chain)
+    b = []
+    for c in a:
+      b+=c['exclude']
+    frames = list(app_tables.frames.search())
+    random.shuffle(frames)
+    n = 0
+    for d in b:
+      frame = frames[n]
+      if chain == "Ethereum":
+        frame.update(eth_id=d)
+      if chain == 'PulseChain':
+        frame.update(pls_id=d)
+      if chain=='Degen Chain':
+        frame.update(degen_id=d)
+      n+=1
+      print(chain, d, frame['file_name'])
+      
   def refresh(self):
     
     try:

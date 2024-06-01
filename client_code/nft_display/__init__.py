@@ -15,7 +15,18 @@ class nft_display(nft_displayTemplate):
     self.is_clickable = properties['is_clickable']
     self.role = ['elevated-card']
   def refresh(self):
-    self.image.source="_/theme/Frame%20NFT%20Placeholder.png"#self.data['Metadata']['image']
+    if self.item['chain']=='Ethereum':
+      row = app_tables.frames.get(eth_id=self.data['ID'])
+      
+      #selection.update(eth_id=n)
+    if self.item['chain']=='PulseChain':
+      row = app_tables.frames.get(pls_id=self.data['ID'])
+      
+      #selection.update(pls_id=n)
+    if self.item['chain']=='Degen Chain':
+      row = app_tables.frames.get(degen_id=self.data['ID'])
+    
+    self.image.source=row['file']#"_/theme/Frame%20NFT%20Placeholder.png"#self.data['Metadata']['image']
     self.label_name.text = "Frame NFT ID #{}".format(self.data['ID'])
     self.contract_read = get_open_form().get_contract('frames')
     self.did_claim = self.contract_read.DID_CLAIM(self.data['ID'])

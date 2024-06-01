@@ -4,7 +4,7 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-
+import random
 
 class ItemTemplate2(ItemTemplate2Template):
   def __init__(self, **properties):
@@ -19,20 +19,36 @@ class ItemTemplate2(ItemTemplate2Template):
       pass
     else:
       self.possible = self.candidates['exclude']
-      self.outlined_button_1.enabled=False
+      #self.outlined_button_1.enabled=False
     
     # Any code you write here will run before the form opens.
 
   def outlined_button_1_click(self, **event_args):
     event_args['sender'].enabled=False
-    
+    count = 0
     m=[]
     for n in range(self.start, self.end):
-      try:
-        a = self.contract.ownerOf(n)
-        m.append(n)
-        event_args['sender'].text = "{} | {}-{} {}".format(n, self.start, self.end, len(m))
-      except Exception as e:
-        print(e)
-    app_tables.exclude.add_row(cohort=self.start, exclude=m,chain=self.item['chain'])
+      if n in self.possible:
+        try:
+          a = self.contract.ownerOf(n)
+          m.append(n)
+          count = len(m)
+          if self.item['chain']=='Ethereum':
+            options = app_tables.frames.search(eth_id=None)
+            selection = random.choice(list(options))
+            #selection.update(eth_id=n)
+          if self.item['chain']=='PulseChain':
+            options = app_tables.frames.search(pls_id=None)
+            selection = random.choice(list(options))
+            #selection.update(pls_id=n)
+          if self.item['chain']=='Degen Chain':
+            options = app_tables.frames.search(degen_id=None)
+            selection = random.choice(list(options))
+            #selection.update(degen_id=n)
+          print(selection['file_name'])
+          
+        except Exception as e:
+          print(e)
+      event_args['sender'].text = "{} | {}-{} {}".format(n, self.start, self.end, count)
+    #app_tables.exclude.add_row(cohort=self.start, exclude=m,chain=self.item['chain'])
     event_args['sender'].icon='fa:check'
