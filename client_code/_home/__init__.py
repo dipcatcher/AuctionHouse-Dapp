@@ -21,9 +21,9 @@ class _home(_homeTemplate):
     self.auction_name = "auction"
     self.network = 369
     self.auction_chain = "PulseChain"
-    self.shuffle("Ethereum")
-    self.shuffle("PulseChain")
-    self.shuffle("Degen Chain")
+    #self.shuffle("Ethereum")
+    #self.shuffle("PulseChain")
+    #self.shuffle("Degen Chain")
     
     
       
