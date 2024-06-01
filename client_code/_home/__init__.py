@@ -21,13 +21,7 @@ class _home(_homeTemplate):
     self.auction_name = "saturday"
     self.network = 369
     self.auction_chain = "PulseChain"
-    '''if False:
-      a = app_tables.frames.search()
-      for b in a:
-        b.update(degen_id=None, eth_id=None, pls_id=None)
-      self.shuffle("Ethereum", 2818)
-      self.shuffle("PulseChain", 34561) #34561
-      self.shuffle("Degen Chain", 2445)'''
+    
     
     
       

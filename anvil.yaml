@@ -12,7 +12,8 @@ package_name: Auction_House_by_GOFURS
 allow_embedding: false
 name: Auction House by GOFURS
 runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
-metadata: {logo_img: 'asset:auction house link image.png', title: Auction House by GOFURS}
+metadata: {logo_img: 'asset:auction house link image.png', title: Auction House by GOFURS,
+  description: Trustless onchain auctions.}
 startup_form: null
 native_deps: {head_html: '<link rel="preconnect" href="https://fonts.googleapis.com">
 
