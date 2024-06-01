@@ -1,11 +1,12 @@
 container: {type: ColumnPanel}
 components:
 - name: image_1
-  properties: {height: 329.08203125, source: _/theme/3c5267e412d3fbe2ff75059967ab5b6c.jpg}
+  properties: {display_mode: shrink_to_fit, source: _/theme/auction%20house%20link%20image.png,
+    height: 411.046875}
   type: Image
-  layout_properties: {grid_position: 'WUPHNJ,SRCYHN'}
-- name: label_1
-  properties: {role: title, text: Coming Soon..., align: center}
-  type: Label
-  layout_properties: {grid_position: 'LXLRWO,QIDVFL'}
+  layout_properties: {grid_position: 'NEKYQU,KROJGY'}
+- name: countdown_1
+  properties: {}
+  type: form:countdown
+  layout_properties: {grid_position: 'ERVGHV,IVVEBQ'}
 is_package: true

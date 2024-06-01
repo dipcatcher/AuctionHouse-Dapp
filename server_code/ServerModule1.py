@@ -22,7 +22,7 @@ def get_contract(name):
     abi, address = get_contract_data(name)
     return web3.eth.contract(address=address, abi=abi)
 
-@anvil.server.callable
+
 def run_nft_map():
   return anvil.server.launch_background_task('nft_map')
 @anvil.server.background_task

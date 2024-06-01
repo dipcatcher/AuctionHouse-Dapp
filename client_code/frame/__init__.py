@@ -17,8 +17,7 @@ class frame(frameTemplate):
       alert('Connect your wallet!')
     else:
       
-      if get_open_form().wc.chainId not in [8008135]:
-        alert("This is only on G Chain Testnet")
+      
       self.gofurs_contract = ethers.Contract(get_open_form().gofurs_address, get_open_form().gofurs_abi, get_open_form().wc.provider)
       address = get_open_form().wc.address
       self.nft_ids = self.get_nft_ids(address)
@@ -27,11 +26,11 @@ class frame(frameTemplate):
       for id in self.nft_ids:
         _ = {"ID":id, "owner":address}
         
-        data_uri = self.gofurs_contract.tokenURI(id)
+        #data_uri = self.gofurs_contract.tokenURI(id)
         
-        json_part = data_uri.split(",", 1)[1]
-        metadata_dict = json.loads(json_part)
-        _["Metadata"]=metadata_dict
+        #json_part = data_uri.split(",", 1)[1]
+        #metadata_dict = json.loads(json_part)
+        #_["Metadata"]=metadata_dict
         self.nft_data.append(_)
       
       r = 1

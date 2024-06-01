@@ -20,12 +20,14 @@ components:
     layout_properties: {grid_position: 'OLDJGD,XCFJEH'}
   - name: label_2_copy
     properties: {text: 'Each auction begins with a minimum starting bid. Every new
-        bid must be larger than the prior bid by the Minimum Bid Increment.
+        bid must be larger than the prior bid by the Minimum Bid Increment. In this
+        auction, it is 30%.
 
 
         When a new bid is placed, the prior bidder receives their bid amount back
         and the difference between the new bid and the prior bid is distributed between
         the auctioneer and the prior bidder per the Bid Difference Split of that auction.
+        In this auction, the auctioneer is burning its half of the split.
 
 
         If you participate in the auction, you will either win the prize or earn from
@@ -35,41 +37,14 @@ components:
     type: Label
     layout_properties: {grid_position: 'DTFKFN,QCWQSP'}
   - name: label_1_copy_copy
-    properties: {text: Lite Roadmap, bold: true, font_size: 16, role: body}
+    properties: {text: 'Want to utilize this auction system?', bold: true, font_size: 16,
+      role: body}
     type: Label
     layout_properties: {grid_position: 'XXEQTL,INXCGA'}
   - name: label_2_copy_copy
-    properties: {text: 'We will be rolling out Auction House in stages.
+    properties: {text: 'Get in touch with Dip Catcher or Goldkey.
 
         ', role: body, spacing_below: large}
     type: Label
     layout_properties: {grid_position: 'MISXET,MUENME'}
-  - name: label_1_copy_copy_copy
-    properties: {text: Stage 1, bold: true, font_size: 14, role: body}
-    type: Label
-    layout_properties: {grid_position: 'AKNKCS,MRBNYH'}
-  - name: label_2_copy_copy_copy
-    properties: {text: 'The inaugural auction will be for ********, a music video
-        NFT.', role: body, spacing_below: large}
-    type: Label
-    layout_properties: {grid_position: 'AWXWLN,DOAQWH'}
-  - name: label_1_copy_copy_copy_copy
-    properties: {text: Stage 2, bold: true, font_size: 14, role: body}
-    type: Label
-    layout_properties: {grid_position: 'EONVHK,ZPAJLE'}
-  - name: label_2_copy_copy_copy_copy
-    properties: {text: 'We plan to partner with NFT artists who would like to do an
-        exlusive 1-of-1 drop of their art on Auction House. These auction will be
-        1 at a time.
-
-
-        If you''re an NFT artist and would like to partner with Auction House, applications
-        are open.', role: body, spacing_below: medium}
-    type: Label
-    layout_properties: {grid_position: 'OVZRTV,JMHGFC'}
-  - name: button_3
-    properties: {text: Apply, role: filled-button, spacing_above: none, font: Inter,
-      spacing_below: none, align: left}
-    type: Button
-    layout_properties: {grid_position: 'FBYLUU,YTMNEQ'}
 is_package: true

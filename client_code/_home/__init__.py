@@ -12,16 +12,21 @@ import datetime
 import time
 from datetime import timedelta, timezone
 
-
+import random
 class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.is_first = True
     self.auction_name = "auction"
-    self.network = 8008135
+    self.network = 369
     self.auction_chain = "PulseChain"
+    #self.shuffle("Ethereum")
+    #self.shuffle("PulseChain")
+    #self.shuffle("Degen Chain")
     
+    
+      
     
     self.c =  app_tables.contract_data.get(name='series')
     url = app_tables.wallet_chains.get(chainId=self.network)['rpcUrl']
@@ -38,7 +43,25 @@ class _home(_homeTemplate):
     self.elogs = []
     #self.nft_map()
     self.refresh()
-   
+  def shuffle(self, chain):
+    a = app_tables.exclude.search(chain=chain)
+    b = []
+    for c in a:
+      b+=c['exclude']
+    frames = list(app_tables.frames.search())
+    random.shuffle(frames)
+    n = 0
+    for d in b:
+      frame = frames[n]
+      if chain == "Ethereum":
+        frame.update(eth_id=d)
+      if chain == 'PulseChain':
+        frame.update(pls_id=d)
+      if chain=='Degen Chain':
+        frame.update(degen_id=d)
+      n+=1
+      print(chain, d, frame['file_name'])
+      
   def refresh(self):
     
     try:
@@ -226,5 +249,18 @@ class _home(_homeTemplate):
         print(len(m))
       except:
         pass'''
+  def get_chain_contract(self, chain, name):
+    url = app_tables.wallet_chains.get(name=chain)['rpcUrl']
+    provider = ethers.providers.JsonRpcProvider(url)
+    c = app_tables.contract_data.get(name=name)
+    contract = ethers.Contract(c['address'], c['abi'], provider)
+    return contract
+  def outlined_button_1_click(self, **event_args):
+    """This method is called when the button is clicked"""
+    self.content_panel.clear()
+    for chain in ['Ethereum', "PulseChain", "Degen Chain"]:
+      contract = self.get_chain_contract(chain, 'GOFURS')
+      self.content_panel.add_component(calc(contract = contract, name=chain))
+    
 
       
