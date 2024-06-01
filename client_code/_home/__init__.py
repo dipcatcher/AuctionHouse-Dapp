@@ -18,12 +18,16 @@ class _home(_homeTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.is_first = True
-    self.auction_name = "auction"
+    self.auction_name = "saturday"
     self.network = 369
     self.auction_chain = "PulseChain"
-    #self.shuffle("Ethereum")
-    #self.shuffle("PulseChain")
-    #self.shuffle("Degen Chain")
+    if False:
+      a = app_tables.frames.search()
+      for b in a:
+        b.update(degen_id=None, eth_id=None, pls_id=None)
+      self.shuffle("Ethereum", 2818)
+      self.shuffle("PulseChain", 34561) #34561
+      self.shuffle("Degen Chain", 2445)
     
     
       
@@ -43,11 +47,17 @@ class _home(_homeTemplate):
     self.elogs = []
     #self.nft_map()
     self.refresh()
-  def shuffle(self, chain):
+  def shuffle(self, chain, deadline):
     a = app_tables.exclude.search(chain=chain)
     b = []
     for c in a:
       b+=c['exclude']
+    
+    b.sort()
+    print(b[-1])
+    if b[-1]<deadline:
+      b+=list(range(b[-1]+1, deadline+1))
+    print(b)
     frames = list(app_tables.frames.search())
     random.shuffle(frames)
     n = 0
