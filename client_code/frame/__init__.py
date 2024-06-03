@@ -54,6 +54,10 @@ class frame(frameTemplate):
     if get_open_form().wc.chainId==666666666:
       print("degen")
       from_block = 1239792
+    if get_open_form().wc.chainId==369:
+      print("degen")
+      from_block = 19565765
+    
     logs = self.gofurs_contract.queryFilter(event_filter, from_block, to_block)
     processed_logs = [log.args for log in logs]  # Replace with your own logic if necessary
         
