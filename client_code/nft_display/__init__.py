@@ -14,6 +14,7 @@ class nft_display(nft_displayTemplate):
     self.data = properties['data']
     self.is_clickable = properties['is_clickable']
     self.role = ['elevated-card']
+    self.contract_read = self.data['contract']
   def refresh(self):
     if get_open_form().wc.chainId==1:
       row = app_tables.frames.get(eth_id=self.data['ID'])
@@ -28,7 +29,7 @@ class nft_display(nft_displayTemplate):
     
     self.image.source=row['file']#"_/theme/Frame%20NFT%20Placeholder.png"#self.data['Metadata']['image']
     self.label_name.text = "Frame NFT ID #{}".format(self.data['ID'])
-    self.contract_read = get_open_form().get_contract('frames')
+    
     self.did_claim = self.contract_read.DID_CLAIM(self.data['ID'])
    
     self.button_claim.text = "Claim NFT" if  not self.did_claim else "✅ Claimed"
