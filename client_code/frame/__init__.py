@@ -19,6 +19,8 @@ class frame(frameTemplate):
       
       
       self.gofurs_contract = ethers.Contract(get_open_form().gofurs_address, get_open_form().gofurs_abi, get_open_form().wc.provider)
+      f  = app_tables.contract_data.get(name='frames')
+      frame_contract = ethers.Contract(f['address'], f['abi'], get_open_form().wc.provider)
       address = get_open_form().wc.address
       self.nft_ids = self.get_nft_ids(address)
       
@@ -26,7 +28,7 @@ class frame(frameTemplate):
       if len(self.nft_ids) == 0:
         self.column_panel_eligible.visible=True
       for id in self.nft_ids:
-        _ = {"ID":id, "owner":address}
+        _ = {"ID":id, "owner":address, 'contract':frame_contract}
         
         #data_uri = self.gofurs_contract.tokenURI(id)
         
