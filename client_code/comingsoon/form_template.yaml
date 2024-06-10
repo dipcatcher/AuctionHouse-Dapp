@@ -1,8 +1,7 @@
 container: {type: ColumnPanel}
 components:
 - name: image_1
-  properties: {display_mode: shrink_to_fit, source: _/theme/auction%20house%20link%20image.png,
-    height: 411.046875}
+  properties: {display_mode: shrink_to_fit, source: _/theme/auction%20house%20link%20image.png, height: 411.046875}
   type: Image
   layout_properties: {grid_position: 'NEKYQU,KROJGY'}
 - name: countdown_1

@@ -10,8 +10,7 @@ components:
     type: Label
     layout_properties: {grid_position: 'ANHITZ,GIMSPI'}
   - name: label_2
-    properties: {text: Introducing a new trustless auction model where everyone wins.,
-      role: body, spacing_below: large}
+    properties: {text: Introducing a new trustless auction model where everyone wins., role: body, spacing_below: large}
     type: Label
     layout_properties: {grid_position: 'LLELMU,YXGOZK'}
   - name: label_1_copy
@@ -19,21 +18,15 @@ components:
     type: Label
     layout_properties: {grid_position: 'OLDJGD,XCFJEH'}
   - name: label_2_copy
-    properties: {text: 'Each auction begins with a minimum starting bid. Every new
-        bid must be larger than the prior bid by the Minimum Bid Increment. In this
-        auction, it is 20%.
+    properties:
+      text: |
+        Each auction begins with a minimum starting bid. Every new bid must be larger than the prior bid by the Minimum Bid Increment. In this auction, it is 20%.
 
+        When a new bid is placed, the prior bidder receives their bid amount back. Then, the difference between the new bid and the prior bid is split in half between the auctioneer and the prior bidder. In this auction, the auctioneer is burning its half of the split.
 
-        When a new bid is placed, the prior bidder receives their bid amount back.
-        Then, the difference between the new bid and the prior bid is split in half
-        between the auctioneer and the prior bidder. In this auction, the auctioneer
-        is burning its half of the split.
-
-
-        If you participate in the auction, you will either win the prize or earn from
-        the person bidding after you.
-
-        ', role: body, spacing_below: large}
+        If you participate in the auction, you will either win the prize or earn from the person bidding after you.
+      role: body
+      spacing_below: large
     type: Label
     layout_properties: {grid_position: 'DTFKFN,QCWQSP'}
   - name: infovideo_1
@@ -41,14 +34,15 @@ components:
     type: form:infovideo
     layout_properties: {grid_position: 'BQIHMJ,EOXXRT'}
   - name: label_1_copy_copy
-    properties: {text: 'Want to utilize this auction system?', bold: true, font_size: 16,
-      role: body}
+    properties: {text: 'Want to utilize this auction system?', bold: true, font_size: 16, role: body}
     type: Label
     layout_properties: {grid_position: 'XXEQTL,INXCGA'}
   - name: label_2_copy_copy
-    properties: {text: 'Get in touch with Dip Catcher or Goldkey.
-
-        ', role: body, spacing_below: large}
+    properties:
+      text: |
+        Get in touch with Dip Catcher or Goldkey.
+      role: body
+      spacing_below: large
     type: Label
     layout_properties: {grid_position: 'MISXET,MUENME'}
 is_package: true

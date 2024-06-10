@@ -3,7 +3,7 @@ components:
 - name: column_panel_active
   properties: {}
   type: ColumnPanel
-  layout_properties: {grid_position: 'ZWVODH,UFELCU'}
+  layout_properties: {grid_position: 'CTVEFI,GCPBSM'}
   components:
   - name: label_1
     properties: {text: Active Auctions, role: title}

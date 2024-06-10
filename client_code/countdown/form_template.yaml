@@ -1,6 +1,5 @@
 container:
   type: HtmlTemplate
-  properties: {html: '<center><iframe width="300" height="154" src="https://w2.countingdownto.com/5593472"
-      frameborder="0"></iframe></center>'}
+  properties: {html: '<center><iframe width="300" height="154" src="https://w2.countingdownto.com/5593472" frameborder="0"></iframe></center>'}
 components: []
 is_package: true

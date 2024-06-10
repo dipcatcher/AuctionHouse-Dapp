@@ -35,6 +35,11 @@ components:
     type: Link
     layout_properties: {grid_position: 'UWABUF,BSGAKM'}
     event_bindings: {click: menu_click}
+  - name: link_past_auctions
+    properties: {text: All Auctions, font: Inter, icon: '', align: left}
+    type: Link
+    layout_properties: {grid_position: 'TZARES,BNAXIE'}
+    event_bindings: {click: menu_click}
 - name: content_panel
   properties: {}
   type: ColumnPanel

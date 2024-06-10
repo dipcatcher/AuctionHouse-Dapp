@@ -7,6 +7,7 @@ import anvil.server
 from ..auction import auction
 from ..frame import frame
 from ..about import about as About
+from ..auctions import auctions
 from anvil.js.window import ethers
 import datetime
 import time
@@ -84,6 +85,8 @@ class _home(_homeTemplate):
       self.page = frame()
     if self.target == self.link_about:
       self.page = About()
+    if self.target==self.link_past_auctions:
+      self.page = auctions()
     self.content_panel.add_component(self.page)
     self.latest = self.target
   
