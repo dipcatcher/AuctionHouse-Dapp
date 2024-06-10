@@ -8,6 +8,7 @@ from ..auction import auction
 from ..frame import frame
 from ..about import about as About
 from ..auctions import auctions
+from ..auction2 import auction2
 from anvil.js.window import ethers
 import datetime
 import time
@@ -19,9 +20,9 @@ class _home(_homeTemplate):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.is_first = True
-    self.auction_name = "saturday"
-    self.network = 369
-    self.auction_chain = "PulseChain"
+    self.auction_name = "bonus"
+    self.network = 8008135 #369
+    self.auction_chain = "G Chain Testnet" #"PulseChain"
     
     
     
@@ -80,7 +81,7 @@ class _home(_homeTemplate):
     self.content_panel.clear()
     self.target = event_args['sender']
     if self.target==self.link_auction:
-      self.page = auction()
+      self.page = auction2()
     if self.target == self.link_frame:
       self.page = frame()
     if self.target == self.link_about:

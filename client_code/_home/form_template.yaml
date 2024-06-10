@@ -21,24 +21,24 @@ components:
   layout_properties: {slot: left-nav}
   components:
   - name: link_auction
-    properties: {text: Auction, font: Inter, icon: '', align: left}
+    properties: {text: LIVE Auction, font: Inter, icon: '', align: left}
     type: Link
     layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
     event_bindings: {click: menu_click}
-  - name: link_frame
-    properties: {text: NFT Airdrop, font: Inter, icon: '', align: left}
+  - name: link_past_auctions
+    properties: {text: All Auctions, font: Inter, icon: '', align: left}
     type: Link
-    layout_properties: {grid_position: 'NVCXRX,AFLMMI'}
+    layout_properties: {grid_position: 'FJZBIN,SIPWHM'}
     event_bindings: {click: menu_click}
   - name: link_about
     properties: {text: About, font: Inter, icon: '', align: left}
     type: Link
     layout_properties: {grid_position: 'UWABUF,BSGAKM'}
     event_bindings: {click: menu_click}
-  - name: link_past_auctions
-    properties: {text: All Auctions, font: Inter, icon: '', align: left}
+  - name: link_frame
+    properties: {text: NFT Airdrop, font: Inter, icon: '', align: left}
     type: Link
-    layout_properties: {grid_position: 'TZARES,BNAXIE'}
+    layout_properties: {grid_position: 'YLEXAD,XSAOEA'}
     event_bindings: {click: menu_click}
 - name: content_panel
   properties: {}
