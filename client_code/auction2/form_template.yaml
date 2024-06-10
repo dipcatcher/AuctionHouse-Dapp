@@ -103,7 +103,7 @@ components:
       layout_properties: {grid_position: 'YSDASZ,KIGNNN'}
       components:
       - name: link_minimum_bid
-        properties: {align: center, role: body, text: -- GOFURS, bold: true, font_size: 16, spacing_above: none}
+        properties: {align: center, role: body, text: -- GOFURS, bold: true, font_size: 16, spacing_above: none, foreground: black}
         type: Link
         layout_properties: {grid_position: 'HZOSEN,XFSHMU'}
         components: []

@@ -33,7 +33,7 @@ class auction2(auction2Template):
       self.contract_write = None
     else:
       self.user_data = get_open_form().get_user_data(self.address)
-      self.contract_write = get_open_form().get_contract("series", False)
+      self.contract_write = get_open_form().get_contract("series2", False)
       self.column_panel_6.visible = (
         get_open_form().wc.chainId != get_open_form().network
       )
@@ -136,7 +136,8 @@ class auction2(auction2Template):
     self.column_panel_error.add_component(e)
     self.is_good = all([is_approved, is_balance, is_valid, is_enough, is_pls])
     if not is_approved:
-      self.button_set_approval_click(sender=self.button_set_approval)
+      pass
+      #self.button_set_approval_click(sender=self.button_set_approval)
 
   def button_set_approval_click(self, **event_args):
     """This method is called when the button is clicked"""
@@ -145,7 +146,7 @@ class auction2(auction2Template):
       return False
     else:
       try:
-        t = "{:.18f}".format(int(self.input_value.toString()) / (10**18))
+        t = "{:.18f}".format(int(self.user_data['Balance']) / (10**18))
       except Exception as e:
         t = None
 
@@ -203,6 +204,7 @@ class auction2(auction2Template):
 
         self.form_show()
     else:
+      self.link_minimum_bid_click(sender=self.link_minimum_bid)
       self.bid_input_change(sender=self.bid_input)
       if not self.is_good:
         return False

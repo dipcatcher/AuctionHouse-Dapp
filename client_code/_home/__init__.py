@@ -28,11 +28,11 @@ class _home(_homeTemplate):
     
       
     
-    self.c =  app_tables.contract_data.get(name='series')
+    self.c =  app_tables.contract_data.get(name='series2')
     url = app_tables.wallet_chains.get(chainId=self.network)['rpcUrl']
     self.provider = ethers.providers.JsonRpcProvider(url)
     self.latest_block = anvil.js.await_promise(self.provider.getBlockNumber())
-    self.contract = self.get_contract('series')
+    self.contract = self.get_contract('series2')
     gofurs_address = "0x54f667dB585b7B10347429C72c36c8B59aB441cb"
     gc = app_tables.contract_data.get(name="GOFURS")
     self.gofurs_address = gc['address']
@@ -73,7 +73,7 @@ class _home(_homeTemplate):
     try:
       self.auction_data = self.get_auction_data(self.auction_name)
       self.menu_click(sender=self.latest)
-    except:
+    except Exception as e:
       self.menu_click(sender=self.link_auction)
     
     # Any code you write here will run before the form opens.
@@ -103,8 +103,6 @@ class _home(_homeTemplate):
     auction_data = self.contract.AUCTION_DATABASE(name)
     data = {}
     f = [
-        "lastBidTimestamp",
-        "firstBidTimestamp",
         "auctionEndTimestamp",
         "latestBidder",
         "bidAmount",
@@ -116,7 +114,8 @@ class _home(_homeTemplate):
         "auctionDurationHours",
         "extensionPeriodHours",
         "minimumBidIncrement",
-        "bidToken"
+        "bidToken",
+        "maximumBidIncrement"
     ]
     n = 0
     for i in auction_data:
@@ -138,7 +137,7 @@ class _home(_homeTemplate):
     data['Approved'] =int(self.gofurs_contract.allowance(self.wc.address, self.c['address']).toString())
     return data
   def events_catalog(self, event_name, from_block = 0, to_block = "latest"):
-    abi = app_tables.contract_data.get(name='series')['abi']
+    abi = app_tables.contract_data.get(name='series2')['abi']
     
     # TODO: return event query results of the input event_name. The event_name should be in the available events from the party_abi.
     event_names = [event['name'] for event in abi if event['type'] == 'event']
