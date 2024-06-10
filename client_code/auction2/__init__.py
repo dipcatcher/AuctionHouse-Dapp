@@ -22,30 +22,7 @@ class auction2(auction2Template):
 
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
-    if get_open_form().is_first:
-      a = anvil.js.await_promise(
-        Swal.fire(
-          {
-            "title": "Welcome to Auction House!",
-            "text": "Before bidding in the auction, make sure to check your eligibility for the NFT Airdrop. You are eligible if you held at least one full GOFURS as of the launch of the auction. Bidding before claiming on PulseChain could cause you to lose eligibility to claim.",
-            "icon": "info",
-            "confirmButtonText": "Check Eligibility",
-            "showCancelButton": True,
-            "cancelButtonText": "View Auction",
-            "imageUrl": "_/theme/Frame%20NFT%20Icon.png",
-            "imageWidth": 200,
-            "imageHeight": 200,
-            "imageAlt": "Custom image",
-            "iconHtml": """<img src="" alt="Frame NFT Icon" width="0" height="0">""",
-            "customClass": {"icon": "no-border"},
-          }
-        )
-      )
-      if a.isConfirmed:
-        get_open_form().menu_click(sender=get_open_form().link_frame)
-      elif a.isDismissed:
-        print("dismissed")
-      get_open_form().is_first = False
+    
     self.label_only.text = "This auction is only available on {}".format(
       get_open_form().auction_chain
     )
