@@ -8,7 +8,7 @@ from anvil.js.window import ethers
 import anvil.server
 from ..gainful_auction import gainful_auction
 import anvil.js
-
+from ..countdown import countdown
 Swal = anvil.js.window.sweetAlert
 
 
@@ -17,6 +17,9 @@ class auction2(auction2Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.n = 0
+    if True:
+      self.clear()
+      self.add_component(countdown())
 
     # Any code you write here will run before the form opens.
 

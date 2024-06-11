@@ -19,10 +19,12 @@ class _home(_homeTemplate):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
+    
     self.is_first = True
     self.auction_name = "bonus"
     self.network = 8008135 #369
     self.auction_chain = "G Chain Testnet" #"PulseChain"
+    
     
     
     
