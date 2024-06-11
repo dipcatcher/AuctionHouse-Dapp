@@ -23,9 +23,9 @@ class _home(_homeTemplate):
     self.is_first = True
     
     self.auction_name = "Space Time"
-    self.is_live = False
-    self.network = 8008135 #369
-    self.auction_chain = "G Chain Testnet" #"PulseChain"
+    self.is_live = True
+    self.network = 369
+    self.auction_chain = "PulseChain"
     
     
     
