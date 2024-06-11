@@ -22,23 +22,27 @@ components:
     layout_properties: {grid_position: 'DYYOJB,TKAMCU'}
     data_bindings: []
     components:
-    - name: image_1
-      properties: {}
-      type: Image
-      layout_properties: {grid_position: 'AYXLPW,JHXFNS'}
     - name: column_panel_3
       properties: {spacing_above: none, spacing_below: none, wrap_on: never, col_spacing: none}
       type: ColumnPanel
       layout_properties: {grid_position: 'HZKEQY,PPNVFM'}
       components:
+      - name: space_1
+        properties: {}
+        type: form:space
+        layout_properties: {grid_position: 'NGASVN,XDRHOR'}
       - name: title
-        properties: {text: Saturday Morning, role: body, spacing_above: large, spacing_below: none, bold: true, font_size: 20, font: Inter}
+        properties: {text: Space Time, role: body, spacing_above: large, spacing_below: none, bold: true, font_size: 20, font: Inter}
         type: Label
         layout_properties: {grid_position: 'GNQXEI,BGXZMF'}
-      - name: artist
-        properties: {text: by THIQ LIQ & Mo' Fur, role: body, spacing_above: medium, font: Inter}
+      - name: label_1_copy
+        properties: {text: 'In addition to this 1-of-1 NFT, the winner receives:', spacing_above: large}
         type: Label
-        layout_properties: {grid_position: 'KRDFXJ,TJUMHQ'}
+        layout_properties: {grid_position: 'MNSUUL,CTLRHX'}
+      - name: image_1
+        properties: {source: _/theme/Group%2046.png, display_mode: shrink_to_fit, height: 138.87890625}
+        type: Image
+        layout_properties: {grid_position: 'IHJXGS,WAMPHA'}
   - name: column_panel_1
     properties: {role: content-card, wrap_on: never}
     type: ColumnPanel
@@ -84,19 +88,6 @@ components:
     type: ColumnPanel
     layout_properties: {grid_position: 'DYYOJB,HSJZCF KUTBUI,EVCKKH'}
     components:
-    - name: column_panel_4
-      properties: {wrap_on: never, spacing_above: none, spacing_below: none, col_spacing: none}
-      type: ColumnPanel
-      layout_properties: {grid_position: 'YSDASZ,VRIZGD'}
-      components:
-      - name: label_latest_bid
-        properties: {text: -- GOFURS, role: body, spacing_above: none, spacing_below: small, bold: true, font: Inter, align: center, font_size: 16}
-        type: Label
-        layout_properties: {grid_position: 'LRUSCR,MKLQUJ'}
-      - name: artist_copy_copy_2
-        properties: {text: Last Bid, role: body, spacing_above: none, spacing_below: none, bold: false, font: Inter, align: center, font_size: 12}
-        type: Label
-        layout_properties: {grid_position: 'ZVLNLU,LZUZUY'}
     - name: column_panel_5
       properties: {spacing_above: none}
       type: ColumnPanel
@@ -113,6 +104,19 @@ components:
         type: Label
         layout_properties: {grid_position: 'NCBCCT,HWUHYM'}
         data_bindings: []
+    - name: column_panel_4
+      properties: {wrap_on: never, spacing_above: none, spacing_below: none, col_spacing: none}
+      type: ColumnPanel
+      layout_properties: {grid_position: 'YSDASZ,ILOEEG'}
+      components:
+      - name: label_latest_bid
+        properties: {text: -- GOFURS, role: body, spacing_above: none, spacing_below: small, bold: true, font: Inter, align: center, font_size: 16}
+        type: Label
+        layout_properties: {grid_position: 'LRUSCR,MKLQUJ'}
+      - name: artist_copy_copy_2
+        properties: {text: Prior Bid, role: body, spacing_above: none, spacing_below: none, bold: false, font: Inter, align: center, font_size: 12}
+        type: Label
+        layout_properties: {grid_position: 'ZVLNLU,LZUZUY'}
     - name: bid_input
       properties: {role: outlined, spacing_above: small, font: Inter, placeholder: '', type: number, visible: false}
       type: TextBox
@@ -147,7 +151,7 @@ components:
         type: Label
         layout_properties: {}
     - name: label_1
-      properties: {text: 'When a new bid is made, the last bidder gets back their bid amount plus half the difference between the new bid and their bid. The other half of the difference is burnt. '}
+      properties: {text: 'When a new bid is made, the prior bidder gets back their bid amount plus half the difference between the new bid and the prior bid. The other half of the difference is burnt. ', spacing_above: large}
       type: Label
       layout_properties: {grid_position: 'DMAGON,IFCXVQ'}
   - name: column_panel_2
