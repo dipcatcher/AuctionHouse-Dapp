@@ -17,7 +17,7 @@ class auction2(auction2Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.n = 0
-    if True:
+    if False:
       self.clear()
       self.add_component(countdown())
 
