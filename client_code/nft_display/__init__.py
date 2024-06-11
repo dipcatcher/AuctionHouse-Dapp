@@ -44,7 +44,10 @@ class nft_display(nft_displayTemplate):
 
   def form_show(self, **event_args):
     """This method is called when the form is shown on the page"""
-    self.refresh()
+    try:
+      self.refresh()
+    except:
+      pass
 
     # Any code you write here will run before the form opens.
 

@@ -8,10 +8,7 @@ components:
   type: Label
   layout_properties: {grid_position: 'HLXPPR,ZKIHYH'}
   name: label_1
-- properties: {text: 'GOFURS Holders get a free NFT of a unique frame from the music
-      video for each full unit they own at the time of the auction launch. Connect
-      to each chain you hold GOFURS to check for eligibility - PulseChain, Ethereum,
-      and Degenchain.'}
+- properties: {text: 'GOFURS Holders get a free NFT of a unique frame from the music video for each full unit they own at the time of the auction launch. Connect to each chain you hold GOFURS to check for eligibility - PulseChain, Ethereum, and Degenchain.'}
   type: Label
   layout_properties: {grid_position: 'IHHKLQ,QAWEAH'}
   name: label_2
