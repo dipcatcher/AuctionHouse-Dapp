@@ -17,7 +17,7 @@ class auction2(auction2Template):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
     self.n = 0
-    if True:
+    if False:
       self.clear()
       self.add_component(countdown())
 
@@ -64,6 +64,8 @@ class auction2(auction2Template):
     self.link_minimum_bid.text = "{:.3f} GOFURS".format(
       self.auction_data["nextMinimumBid"] / (10**18)
     )
+    if not self.auction_data['auctionEnded']:
+      self.button_place_bid.text = "Bid {:.3f} GOFURS".format(self.auction_data["nextMinimumBid"] / (10**18))
     self.link_owner.text = (
       "{}...{}".format(
         self.auction_data["latestBidder"][0:4], self.auction_data["latestBidder"][-4:]
@@ -73,13 +75,15 @@ class auction2(auction2Template):
     )
     self.column_panel_error.clear()
 
+    
+    self.timer_1_tick()
     with anvil.server.no_loading_indicator:
       events = get_open_form().events_catalog("Bid")
       events.reverse()
+      
       self.repeating_panel_2.items = events
       self.label_bid_history.text = "Bid History"
       self.label_bid_history.icon = ""
-    self.timer_1_tick()
     self.timer_1.interval = 1
 
   def bid_input_change(self, **event_args):
@@ -97,10 +101,11 @@ class auction2(auction2Template):
       self.input = 0
     try:
       self.input_value = ethers.utils.parseUnits(str(self.input), 18)
+      
       event_args["sender"].role = "outlined"
       is_valid = True
     except Exception as ee:
-      pass
+    
 
       e.add_component(
         Label(
@@ -108,14 +113,19 @@ class auction2(auction2Template):
         )
       )
     val = int(self.input_value.toString())
+    
     if (val > self.user_data["Approved"]) and "link_click" not in event_args:
       self.button_set_approval.role = "outlined-button"
+      self.button_set_approval.background = "#34C759"
+      self.button_set_approval.foreground = "white"
       is_approved = False
       t = "You must approve the contract to interact with your GOFURS. "
       e.add_component(Label(text=t, font_size=10, foreground="red", role="body"))
 
     else:
       self.button_set_approval.role = None
+      self.button_set_approval.background = None
+      self.button_set_approval.foreground=None
       is_approved = True
     if val > self.user_data["Balance"]:
       self.button_buy_gofurs.role = "outlined-button"
@@ -124,12 +134,11 @@ class auction2(auction2Template):
     else:
       self.button_buy_gofurs.role = None
       is_balance = True
-
-    if val < self.auction_data["nextMinimumBid"]:
-      t = "Your bid must exceed the minimum bid. "
-      e.add_component(Label(text=t, font_size=10, foreground="red", role="body"))
-    else:
-      is_enough = True
+    
+    #if val < self.auction_data["nextMinimumBid"]:
+     # t = "Your bid must exceed the minimum bid. "
+      #e.add_component(Label(text=t, font_size=10, foreground="red", role="body"))
+    is_enough = True
     if get_open_form().wc.chainId not in [get_open_form().network]:
       t = "You must be connected to PulseChain."
       e.add_component(Label(text=t, font_size=10, foreground="red", role="body"))
@@ -184,6 +193,9 @@ class auction2(auction2Template):
           a.wait()
         except Exception as e:
           alert(e.original_error.reason)
+        event_args['sender'].background=None
+        event_args['sender'].role = None
+        event_args['sender'].foreground = None
         self.form_show()
 
   def info_icon_click(self, **event_args):
@@ -221,13 +233,31 @@ class auction2(auction2Template):
           # if latest['nextMinimumBid'] > self.input_value:
           # alert("A new bid has come in, please increase your bid.")
           # self.refresh()
+          
+          if self.auction_data['bidAmount']==0:
+            self.input_value = self.auction_data['nextMinimumBid']
+          else:
+            self.input_value =  self.auction_data['nextMinimumBid']+1000000000
+          
           a = anvil.js.await_promise(
             self.contract_write.bid(self.auction_name, self.input_value)
           )
           a.wait()
           self.bid_input.text = None
         except Exception as e:
-          alert(e)
+          
+          
+          try:
+            m = e.original_error.reason
+            
+          except:
+
+            m= "Another bid transaction was processed moments before yours. Try again at the new bid price."
+          Swal.fire({
+              "icon": "error",
+              "title": "Yikes...",
+              "text": m
+            })
           event_args["sender"].enabled = True
 
         self.form_show()
@@ -247,10 +277,18 @@ class auction2(auction2Template):
       self.n = 0
       latest = get_open_form().get_auction_data(self.auction_name)
       if latest["bidAmount"] != self.auction_data["bidAmount"]:
-        Notification("New Bid Detected").show()
+        Swal.fire({
+          
+          "icon": "success",
+          "title": "New Bid Detected",
+          "showConfirmButton": False,
+          "timer": 1500
+        })
         self.refresh()
 
   def link_minimum_bid_click(self, **event_args):
     """This method is called when the link is clicked"""
     self.bid_input.text = self.auction_data["nextMinimumBid"] / (10**18)
     self.bid_input_change(sender=self.bid_input, link_click=True)
+
+  

@@ -21,9 +21,11 @@ class _home(_homeTemplate):
     self.init_components(**properties)
     
     self.is_first = True
-    self.auction_name = "bonus"
-    self.network = 8008135 #369
-    self.auction_chain = "G Chain Testnet" #"PulseChain"
+    
+    self.auction_name = "Space Time"
+    self.is_live = True
+    self.network = 369
+    self.auction_chain = "PulseChain"
     
     
     
