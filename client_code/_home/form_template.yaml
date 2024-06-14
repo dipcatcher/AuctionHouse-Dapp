@@ -11,7 +11,7 @@ components:
   - name: wc
     properties:
       project_id: 03f4fc86117e7b57a2db790fd98541a4
-      chain_ids: ['369', '1', '666666666']
+      chain_ids: ['8008135', '369', '1', '666666666']
     type: form:dep_3mhfdrg7acs:WalletConnect
     layout_properties: {}
     event_bindings: {connect: wc_connect}
