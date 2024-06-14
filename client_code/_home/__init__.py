@@ -9,6 +9,7 @@ from ..frame import frame
 from ..about import about as About
 from ..auctions import auctions
 from ..auction2 import auction2
+from ..auction3 import auction3
 from anvil.js.window import ethers
 import datetime
 import time
@@ -85,7 +86,11 @@ class _home(_homeTemplate):
     self.content_panel.clear()
     self.target = event_args['sender']
     if self.target==self.link_auction:
-      self.page = auction2()
+      chain = 8008135
+      name = 'nft'
+      address = ''
+      
+      self.page = auction3()
     if self.target == self.link_frame:
       self.page = frame()
     if self.target == self.link_about:
