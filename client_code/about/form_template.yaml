@@ -1,48 +1,48 @@
-container: {type: ColumnPanel}
 components:
-- name: outlined_card_2
-  properties: {role: content-card, spacing_above: none}
-  type: ColumnPanel
-  layout_properties: {grid_position: 'GAJCYO,NVECBX'}
-  components:
-  - name: label_1
-    properties: {text: Auction House, bold: true, font_size: 20, role: body}
+- components:
+  - layout_properties: {grid_position: 'ANHITZ,GIMSPI'}
+    name: label_1
+    properties: {bold: true, font_size: 20, role: body, text: Auction House}
     type: Label
-    layout_properties: {grid_position: 'ANHITZ,GIMSPI'}
-  - name: label_2
-    properties: {text: Introducing a new trustless auction model where everyone wins., role: body, spacing_below: large}
+  - layout_properties: {grid_position: 'LLELMU,YXGOZK'}
+    name: label_2
+    properties: {role: body, spacing_below: large, text: Introducing a new trustless auction model where everyone wins.}
     type: Label
-    layout_properties: {grid_position: 'LLELMU,YXGOZK'}
-  - name: label_1_copy
-    properties: {text: How It Works, bold: true, font_size: 16, role: body}
+  - layout_properties: {grid_position: 'OLDJGD,XCFJEH'}
+    name: label_1_copy
+    properties: {bold: true, font_size: 16, role: body, text: How It Works}
     type: Label
-    layout_properties: {grid_position: 'OLDJGD,XCFJEH'}
-  - name: label_2_copy
+  - layout_properties: {grid_position: 'DTFKFN,QCWQSP'}
+    name: label_2_copy
     properties:
+      role: body
+      spacing_below: large
       text: |
         Each auction begins with a minimum starting bid. Every new bid must be larger than the prior bid by the Minimum Bid Increment. In this auction, it is 20%.
 
         When a new bid is placed, the prior bidder receives their bid amount back. Then, the difference between the new bid and the prior bid is split in half between the auctioneer and the prior bidder. In this auction, the auctioneer is burning its half of the split.
 
         If you participate in the auction, you will either win the prize or earn from the person bidding after you.
-      role: body
-      spacing_below: large
     type: Label
-    layout_properties: {grid_position: 'DTFKFN,QCWQSP'}
-  - name: infovideo_1
+  - layout_properties: {grid_position: 'BQIHMJ,EOXXRT'}
+    name: infovideo_1
     properties: {}
     type: form:infovideo
-    layout_properties: {grid_position: 'BQIHMJ,EOXXRT'}
-  - name: label_1_copy_copy
-    properties: {text: 'Want to utilize this auction system?', bold: true, font_size: 16, role: body}
+  - layout_properties: {grid_position: 'XXEQTL,INXCGA'}
+    name: label_1_copy_copy
+    properties: {bold: true, font_size: 16, role: body, text: 'Want to utilize this auction system?'}
     type: Label
-    layout_properties: {grid_position: 'XXEQTL,INXCGA'}
-  - name: label_2_copy_copy
+  - layout_properties: {grid_position: 'MISXET,MUENME'}
+    name: label_2_copy_copy
     properties:
-      text: |
-        Get in touch with Dip Catcher or Goldkey.
       role: body
       spacing_below: large
+      text: |
+        Get in touch with Dip Catcher or Goldkey.
     type: Label
-    layout_properties: {grid_position: 'MISXET,MUENME'}
+  layout_properties: {grid_position: 'GAJCYO,NVECBX'}
+  name: outlined_card_2
+  properties: {role: content-card, spacing_above: none}
+  type: ColumnPanel
+container: {type: ColumnPanel}
 is_package: true

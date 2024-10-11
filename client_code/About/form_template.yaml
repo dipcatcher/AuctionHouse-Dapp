@@ -1,34 +1,34 @@
-is_package: true
-container:
-  type: HtmlTemplate
-  properties: {html: '@theme:standard-page.html'}
 components:
-- type: FlowPanel
-  properties: {align: center, vertical_align: middle, spacing: none, spacing_above: small}
-  name: navbar_links
-  layout_properties: {slot: nav-right}
-  components:
-  - name: column_panel_2
+- components:
+  - components: []
+    name: column_panel_2
     properties: {}
     type: ColumnPanel
-    components: []
-- name: column_panel_1
+  layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {align: center, spacing: none, spacing_above: small, vertical_align: middle}
+  type: FlowPanel
+- components:
+  - event_bindings: {click: link_1_click}
+    layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
+    name: link_1
+    properties: {align: left, font: Inter, icon: '', text: Auction}
+    type: Link
+  - event_bindings: {click: link_1_copy_click}
+    layout_properties: {grid_position: 'UWABUF,BSGAKM'}
+    name: link_1_copy
+    properties: {align: left, font: Inter, icon: '', text: About}
+    type: Link
+  layout_properties: {slot: left-nav}
+  name: column_panel_1
   properties: {}
   type: ColumnPanel
-  layout_properties: {slot: left-nav}
-  components:
-  - name: link_1
-    properties: {text: Auction, font: Inter, icon: '', align: left}
-    type: Link
-    layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
-    event_bindings: {click: link_1_click}
-  - name: link_1_copy
-    properties: {text: About, font: Inter, icon: '', align: left}
-    type: Link
-    layout_properties: {grid_position: 'UWABUF,BSGAKM'}
-    event_bindings: {click: link_1_copy_click}
-- name: outlined_card_1
+- components: []
+  layout_properties: {slot: default}
+  name: outlined_card_1
   properties: {role: main-container, spacing_above: none, spacing_below: large}
   type: ColumnPanel
-  layout_properties: {slot: default}
-  components: []
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true
