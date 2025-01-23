@@ -1,47 +1,47 @@
-is_package: true
-container:
-  type: HtmlTemplate
-  properties: {html: '@theme:standard-page.html'}
 components:
-- type: FlowPanel
-  properties: {align: center, vertical_align: middle, spacing: none, spacing_above: small}
-  name: navbar_links
-  layout_properties: {slot: nav-right}
-  components:
-  - name: wc
-    properties:
-      project_id: 03f4fc86117e7b57a2db790fd98541a4
-      chain_ids: ['369', '1', '666666666']
-    type: form:dep_3mhfdrg7acs:WalletConnect
+- components:
+  - event_bindings: {connect: wc_connect}
     layout_properties: {}
-    event_bindings: {connect: wc_connect}
-- name: column_panel_1
-  properties: {}
-  type: ColumnPanel
-  layout_properties: {slot: left-nav}
-  components:
-  - name: link_auction
-    properties: {text: LIVE Auction, font: Inter, icon: '', align: left}
-    type: Link
+    name: wc
+    properties:
+      chain_ids: ['369', '1', '666666666']
+      project_id: 03f4fc86117e7b57a2db790fd98541a4
+    type: form:dep_3mhfdrg7acs:WalletConnect
+  layout_properties: {slot: nav-right}
+  name: navbar_links
+  properties: {align: center, spacing: none, spacing_above: small, vertical_align: middle}
+  type: FlowPanel
+- components:
+  - event_bindings: {click: menu_click}
     layout_properties: {grid_position: 'JSWZDA,ISHRQQ'}
-    event_bindings: {click: menu_click}
-  - name: link_past_auctions
-    properties: {text: All Auctions, font: Inter, icon: '', align: left, visible: false}
+    name: link_auction
+    properties: {align: left, font: Inter, icon: '', text: LIVE Auction}
     type: Link
+  - event_bindings: {click: menu_click}
     layout_properties: {grid_position: 'FJZBIN,SIPWHM'}
-    event_bindings: {click: menu_click}
-  - name: link_about
-    properties: {text: About, font: Inter, icon: '', align: left}
+    name: link_past_auctions
+    properties: {align: left, font: Inter, icon: '', text: All Auctions, visible: false}
     type: Link
+  - event_bindings: {click: menu_click}
     layout_properties: {grid_position: 'UWABUF,BSGAKM'}
-    event_bindings: {click: menu_click}
-  - name: link_frame
-    properties: {text: NFT Airdrop, font: Inter, icon: '', align: left}
+    name: link_about
+    properties: {align: left, font: Inter, icon: '', text: About}
     type: Link
+  - event_bindings: {click: menu_click}
     layout_properties: {grid_position: 'YLEXAD,XSAOEA'}
-    event_bindings: {click: menu_click}
-- name: content_panel
+    name: link_frame
+    properties: {align: left, font: Inter, icon: '', text: NFT Airdrop}
+    type: Link
+  layout_properties: {slot: left-nav}
+  name: column_panel_1
   properties: {}
   type: ColumnPanel
+- components: []
   layout_properties: {slot: default}
-  components: []
+  name: content_panel
+  properties: {}
+  type: ColumnPanel
+container:
+  properties: {html: '@theme:standard-page.html'}
+  type: HtmlTemplate
+is_package: true

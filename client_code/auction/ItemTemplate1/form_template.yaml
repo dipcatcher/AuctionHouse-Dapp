@@ -1,11 +1,11 @@
-is_package: true
-container: {type: ColumnPanel}
 components:
-- name: label_1
+- layout_properties: {grid_position: 'UALYFS,BMJIFU'}
+  name: label_1
   properties: {text: 0xabc...123}
   type: Label
-  layout_properties: {grid_position: 'UALYFS,BMJIFU'}
-- name: label_2
+- layout_properties: {grid_position: 'UALYFS,EVFCEW'}
+  name: label_2
   properties: {align: right, text: 1000000 GOFURS}
   type: Label
-  layout_properties: {grid_position: 'UALYFS,EVFCEW'}
+container: {type: ColumnPanel}
+is_package: true

@@ -1,5 +1,5 @@
-container:
-  type: HtmlTemplate
-  properties: {html: '@theme:new_file.html'}
 components: []
+container:
+  properties: {html: '@theme:new_file.html'}
+  type: HtmlTemplate
 is_package: true

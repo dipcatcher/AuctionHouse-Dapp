@@ -1,8 +1,8 @@
-is_package: true
-container: {type: ColumnPanel}
 components:
-- name: outlined_button_1
-  properties: {text: outlined_button_1, role: outlined-button, icon: ''}
-  type: Button
+- event_bindings: {click: outlined_button_1_click}
   layout_properties: {grid_position: 'IAPIHI,WGODBR'}
-  event_bindings: {click: outlined_button_1_click}
+  name: outlined_button_1
+  properties: {icon: '', role: outlined-button, text: outlined_button_1}
+  type: Button
+container: {type: ColumnPanel}
+is_package: true

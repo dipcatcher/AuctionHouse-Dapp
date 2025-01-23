@@ -1,11 +1,11 @@
-container: {type: ColumnPanel}
 components:
-- name: image_1
-  properties: {display_mode: shrink_to_fit, source: _/theme/auction%20house%20link%20image.png, height: 411.046875}
+- layout_properties: {grid_position: 'NEKYQU,KROJGY'}
+  name: image_1
+  properties: {display_mode: shrink_to_fit, height: 411.046875, source: _/theme/auction%20house%20link%20image.png}
   type: Image
-  layout_properties: {grid_position: 'NEKYQU,KROJGY'}
-- name: countdown_1
+- layout_properties: {grid_position: 'ERVGHV,IVVEBQ'}
+  name: countdown_1
   properties: {}
   type: form:countdown
-  layout_properties: {grid_position: 'ERVGHV,IVVEBQ'}
+container: {type: ColumnPanel}
 is_package: true

@@ -1,25 +1,25 @@
-container:
-  type: ColumnPanel
-  event_bindings: {show: form_show}
-  properties: {role: null}
 components:
-- name: column_panel_1
+- components:
+  - event_bindings: {mouse_up: image_mouse_up}
+    layout_properties: {grid_position: 'PEADCX,PTDPNF'}
+    name: image
+    properties: {display_mode: fill_width, height: 141.8203125}
+    type: Image
+  layout_properties: {grid_position: ''}
+  name: column_panel_1
   properties: {role: null}
   type: ColumnPanel
-  layout_properties: {grid_position: ''}
-  components:
-  - name: image
-    properties: {height: 141.8203125, display_mode: fill_width}
-    type: Image
-    layout_properties: {grid_position: 'PEADCX,PTDPNF'}
-    event_bindings: {mouse_up: image_mouse_up}
-- name: label_name
+- layout_properties: {grid_position: ''}
+  name: label_name
   properties: {bold: true}
   type: Label
-  layout_properties: {grid_position: ''}
-- name: button_claim
-  properties: {text: Claim NFT, role: outlined-button, align: left}
-  type: Button
+- event_bindings: {click: button_claim_click}
   layout_properties: {grid_position: 'VUEKJU,KRXWXO'}
-  event_bindings: {click: button_claim_click}
+  name: button_claim
+  properties: {align: left, role: outlined-button, text: Claim NFT}
+  type: Button
+container:
+  event_bindings: {show: form_show}
+  properties: {role: null}
+  type: ColumnPanel
 is_package: true
